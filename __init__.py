@@ -1,6 +1,6 @@
 bl_info = {
     "name": "Hypermesh",
-    "description": "Adds tools for manipulating 4-dimensional objects to Blender.",
+    "description": "Adds tools for manipulating 4-dimensional meshes to Blender.",
     "author": "Daan Michiels",
     "version": (0, 1),
     "blender": (2, 75, 0),
@@ -25,7 +25,6 @@ else:
     import hypermesh.hypereditpanel
     import hypermesh.updatehyperpositions
 
-#from hypermesh.projections import map4to3, map3to4
 from hypermesh.hypersettings import HyperSettings
 from hypermesh.makehyperoperator import MakeHyperOperator
 from hypermesh.alignprojectionoperator import AlignProjectionOperator
