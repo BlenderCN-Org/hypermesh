@@ -17,7 +17,6 @@ def map4to3(h, p):
             Vector(h.zvec),
             direction])
     m = m.transpose()
-    print(p.w, p.x, p.y, p.z)
     result = numpy.linalg.solve(m, p - Vector(h.viewcenter))
     result = result[:3]
     return Vector(result)

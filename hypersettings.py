@@ -26,14 +26,29 @@ def handler_hypersettings_changed(self, context):
         bm.to_mesh(me)
         me.update()
 
+def get_perspective(self):
+    try:
+        return self["perspective"]
+    except:
+        self["perspective"] = False
+        return self["perspective"]
+
+def set_perspective(self, value):
+    self["perspective"] = value
+
 class HyperSettings(bpy.types.PropertyGroup):
     hyper = bpy.props.BoolProperty(name="Hyper",
             description="Is this object a hyperobject?",
             default=False)
+    hyperdirty = bpy.props.BoolProperty(name="Dirty",
+            description="Are the 4-coordinates of the vertices dirty?",
+            default = True,
+            options={'HIDDEN'})
     perspective = bpy.props.BoolProperty(name="Perspective",
             description="Use perspective when mapping to 3-space",
-            default = False,
-            update = handler_hypersettings_changed)
+            update = handler_hypersettings_changed,
+            get = get_perspective,
+            set = set_perspective)
     viewcenter = bpy.props.FloatVectorProperty(name="View center",
             size=4,
             description="The point in 4-space at the origin of the image plane",

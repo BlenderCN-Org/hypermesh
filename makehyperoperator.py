@@ -27,6 +27,7 @@ class MakeHyperOperator(bpy.types.Operator):
         layy = bm.verts.layers.float.new('hypery')
         layz = bm.verts.layers.float.new('hyperz')
         layw = bm.verts.layers.float.new('hyperw')
+        # this loop in unnecessary as soon as we have the whole dirty thing
         for v in bm.verts:
             point = map3to4(me.hypersettings, v.co)
             v[layx] = point.x
