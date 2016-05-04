@@ -4,7 +4,7 @@ from hypermesh.projections import map4to4
 from mathutils import Vector
 
 def clean_mesh(me):
-    print("Cleaning {}".format(me.name))
+    print("Cleaning {} (perspective is {})".format(me.name, me.hypersettings.perspective))
     if me.is_editmode:
         bm = bmesh.from_edit_mesh(me)
     else:
@@ -43,7 +43,6 @@ class UpdateHyperPositions(bpy.types.Operator):
         return True
 
     def execute(self, context):
-        print("Updating 4-dim. positions.")
         me = context.active_object.data
         clean_mesh(me)
         return {'FINISHED'}

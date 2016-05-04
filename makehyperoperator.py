@@ -1,6 +1,52 @@
 import bpy
 import bmesh
 from hypermesh.projections import map3to4
+from mathutils import Vector
+import pickle
+
+class HyperPreset():
+
+    def __init__(self, builtin = 'noW'):
+        self.perspective = False
+        self.viewcenter = (0.0, 0.0, 0.0, 0.0)
+        w = (1.0, 0.0, 0.0, 0.0)
+        x = (0.0, 1.0, 0.0, 0.0)
+        y = (0.0, 0.0, 1.0, 0.0)
+        z = (0.0, 0.0, 0.0, 1.0)
+        if builtin == 'noX':
+            self.xvec = w
+            self.yvec = y
+            self.zvec = z
+            self.cameraoffset = w
+            self.name = "No X"
+        elif builtin == 'noY':
+            self.xvec = w
+            self.yvec = x
+            self.zvec = z
+            self.cameraoffset = y
+            self.name = "No Y"
+        elif builtin == 'noZ':
+            self.xvec = w
+            self.yvec = x
+            self.zvec = y
+            self.cameraoffset = z
+            self.name = "No Z"
+        else:
+            self.xvec = x
+            self.yvec = y
+            self.zvec = z
+            self.cameraoffset = w
+            self.name = "No W"
+
+def add_presets_to_scene(context):
+    if "hyperpresets" in context.scene.keys():
+        return
+    presets = [HyperPreset(builtin='noW'),
+            HyperPreset(builtin='noX'),
+            HyperPreset(builtin='noY'),
+            HyperPreset(builtin='noZ')]
+    context.scene["hyperpresets"] = pickle.dumps(presets)
+    print(context.scene["hyperpresets"])
 
 class MakeHyperOperator(bpy.types.Operator):
     bl_idname = "hyper.makehyper"
@@ -19,21 +65,18 @@ class MakeHyperOperator(bpy.types.Operator):
 
     def execute(self, context):
         print("Make hyper executing.")
+
+        add_presets_to_scene(context)
+
         me = context.active_object.data
         me.hypersettings.hyper = True
+        me["hyperdirty"] = True
         bm = bmesh.new()
         bm.from_mesh(me)
-        layx = bm.verts.layers.float.new('hyperx')
-        layy = bm.verts.layers.float.new('hypery')
-        layz = bm.verts.layers.float.new('hyperz')
-        layw = bm.verts.layers.float.new('hyperw')
-        # this loop in unnecessary as soon as we have the whole dirty thing
-        for v in bm.verts:
-            point = map3to4(me.hypersettings, v.co)
-            v[layx] = point.x
-            v[layy] = point.y
-            v[layz] = point.z
-            v[layw] = point.w
-            print(point)
+        bm.verts.layers.float.new('hyperx')
+        bm.verts.layers.float.new('hypery')
+        bm.verts.layers.float.new('hyperz')
+        bm.verts.layers.float.new('hyperw')
         bm.to_mesh(me)
         return {'FINISHED'}
+

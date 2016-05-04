@@ -2,6 +2,7 @@ import bpy
 import bmesh
 from mathutils import Vector
 from hypermesh.projections import map4to3
+from hypermesh.updatehyperpositions import clean_mesh
 
 def handler_hypersettings_changed(self, context):
     # we don't know which object had its hypersettings changed
@@ -34,16 +35,18 @@ def get_perspective(self):
         return self["perspective"]
 
 def set_perspective(self, value):
+    for me in bpy.data.meshes:
+        if me.hypersettings != self:
+            continue
+        if me["hyperdirty"]:
+            clean_mesh(me)
     self["perspective"] = value
+    #unfortunately, when this function returns, the mesh is marked dirty again
 
 class HyperSettings(bpy.types.PropertyGroup):
     hyper = bpy.props.BoolProperty(name="Hyper",
             description="Is this object a hyperobject?",
             default=False)
-    hyperdirty = bpy.props.BoolProperty(name="Dirty",
-            description="Are the 4-coordinates of the vertices dirty?",
-            default = True,
-            options={'HIDDEN'})
     perspective = bpy.props.BoolProperty(name="Perspective",
             description="Use perspective when mapping to 3-space",
             update = handler_hypersettings_changed,

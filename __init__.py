@@ -33,13 +33,30 @@ from hypermesh.hypereditpanel import HyperEditPanel
 from hypermesh.updatehyperpositions import UpdateHyperPositions
 
 import bpy
+import random
+
+@bpy.app.handlers.persistent
+def handle_scene_changed(scene):
+    for me in bpy.data.meshes:
+        if me.is_updated:
+            print("Mesh changed ({}, {}, {}).".format(me.name, me.is_updated_data, random.random()))
+            if not me.hypersettings.hyper:
+                continue
+            try:
+                # we need this to avoid infinite recursion with the scene updates
+                if not me["hyperdirty"]:
+                    me["hyperdirty"] = True
+            except KeyError:
+                continue
 
 def register():
     print("Registering!")
     bpy.utils.register_module(__name__)
     bpy.types.Mesh.hypersettings = bpy.props.PointerProperty(type=HyperSettings)
+    bpy.app.handlers.scene_update_post.append(handle_scene_changed)
 
 def unregister():
+    bpy.app.handlers.scene_update_post.remove(handle_scene_changed)
     del bpy.types.Mesh.hypersettings
     bpy.utils.unregister_module(__name__)
     print("Unregistered!")
