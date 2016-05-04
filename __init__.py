@@ -15,6 +15,7 @@ if "bpy" in locals():
     importlib.reload(hypermesh.alignprojectionoperator)
     importlib.reload(hypermesh.hyperobjectpanel)
     importlib.reload(hypermesh.hypereditpanel)
+    importlib.reload(hypermesh.hyperscenepanel)
     importlib.reload(hypermesh.updatehyperpositions)
 else:
     import hypermesh.projections
@@ -23,6 +24,7 @@ else:
     import hypermesh.alignprojectionoperator
     import hypermesh.hyperobjectpanel
     import hypermesh.hypereditpanel
+    import hypermesh.hyperscenepanel
     import hypermesh.updatehyperpositions
 
 from hypermesh.hypersettings import HyperSettings
@@ -30,6 +32,7 @@ from hypermesh.makehyperoperator import MakeHyperOperator
 from hypermesh.alignprojectionoperator import AlignProjectionOperator
 from hypermesh.hyperobjectpanel import HyperObjectPanel
 from hypermesh.hypereditpanel import HyperEditPanel
+from hypermesh.hyperscenepanel import HyperScenePanel
 from hypermesh.updatehyperpositions import UpdateHyperPositions
 
 import bpy

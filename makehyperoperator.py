@@ -39,14 +39,14 @@ class HyperPreset():
             self.name = "No W"
 
 def add_presets_to_scene(context):
-    if "hyperpresets" in context.scene.keys():
+    if "hyperprojections" in context.scene.keys():
         return
     presets = [HyperPreset(builtin='noW'),
             HyperPreset(builtin='noX'),
             HyperPreset(builtin='noY'),
             HyperPreset(builtin='noZ')]
-    context.scene["hyperpresets"] = pickle.dumps(presets)
-    print(context.scene["hyperpresets"])
+    context.scene["hyperprojections"] = pickle.dumps(presets)
+    print(context.scene["hyperprojections"])
 
 class MakeHyperOperator(bpy.types.Operator):
     bl_idname = "hyper.makehyper"
