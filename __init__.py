@@ -12,28 +12,28 @@ if "bpy" in locals():
     importlib.reload(hypermesh.projections)
     importlib.reload(hypermesh.hypersettings)
     importlib.reload(hypermesh.makehyperoperator)
-    importlib.reload(hypermesh.alignprojectionoperator)
     importlib.reload(hypermesh.hyperobjectpanel)
     importlib.reload(hypermesh.hypereditpanel)
     importlib.reload(hypermesh.hyperscenepanel)
     importlib.reload(hypermesh.updatehyperpositions)
+    importlib.reload(hypermesh.hyperpreset)
 else:
     import hypermesh.projections
     import hypermesh.hypersettings
     import hypermesh.makehyperoperator
-    import hypermesh.alignprojectionoperator
     import hypermesh.hyperobjectpanel
     import hypermesh.hypereditpanel
     import hypermesh.hyperscenepanel
     import hypermesh.updatehyperpositions
+    import hypermesh.hyperpreset
 
 from hypermesh.hypersettings import HyperSettings
 from hypermesh.makehyperoperator import MakeHyperOperator
-from hypermesh.alignprojectionoperator import AlignProjectionOperator
 from hypermesh.hyperobjectpanel import HyperObjectPanel
 from hypermesh.hypereditpanel import HyperEditPanel
 from hypermesh.hyperscenepanel import HyperScenePanel
 from hypermesh.updatehyperpositions import UpdateHyperPositions
+from hypermesh.hyperpreset import HyperPreset
 
 import bpy
 import random
@@ -42,24 +42,27 @@ import random
 def handle_scene_changed(scene):
     for me in bpy.data.meshes:
         if me.is_updated:
-            print("Mesh changed ({}, {}, {}).".format(me.name, me.is_updated_data, random.random()))
             if not me.hypersettings.hyper:
                 continue
             try:
-                # we need this to avoid infinite recursion with the scene updates
-                if not me["hyperdirty"]:
-                    me["hyperdirty"] = True
+                me["hyperdirty"] = True
+                print("[hyper] {} marked dirty ({})".format(me.name, random.random()))
             except KeyError:
                 continue
 
 def register():
     print("Registering!")
     bpy.utils.register_module(__name__)
+    print("Module registered.")
     bpy.types.Mesh.hypersettings = bpy.props.PointerProperty(type=HyperSettings)
+    bpy.types.Scene.hyperpresets = bpy.props.CollectionProperty(type=HyperPreset)
+    bpy.types.Scene.currentpreset = bpy.props.IntProperty(name="current_preset")
     bpy.app.handlers.scene_update_post.append(handle_scene_changed)
 
 def unregister():
     bpy.app.handlers.scene_update_post.remove(handle_scene_changed)
+    del bpy.types.Scene.currentpreset
+    del bpy.types.Scene.hyperpresets
     del bpy.types.Mesh.hypersettings
     bpy.utils.unregister_module(__name__)
     print("Unregistered!")

@@ -1,5 +1,13 @@
 import bpy
-import pickle
+
+class preset_list(bpy.types.UIList):
+    def draw_item(self, context, layout, data, item, icon, active_data, active_propname):
+        if self.layout_type in {'DEFAULT', 'COMPACT'}:
+            layout.prop(item, "name", text="", emboss=False)
+            layout.prop(item, "perspective", text="")
+        elif self.layout_type in {'GRID'}:
+            layout.alignment = 'CENTER'
+            layout.label(text="gorilla", icon_value=icon)
 
 class HyperScenePanel(bpy.types.Panel):
     bl_space_type = "PROPERTIES"
@@ -9,14 +17,8 @@ class HyperScenePanel(bpy.types.Panel):
 
     @classmethod
     def poll(self, context):
-        if "hyperprojections" in context.scene.keys():
-            return True
-        else:
-            return False
+        return True
 
     def draw(self, context):
         layout = self.layout
-        presets = pickle.loads(context.scene["hyperprojections"])
-        for p in presets:
-            row = layout.row()
-            row.label(p.name)
+        layout.template_list("preset_list", "notsurewhattoputhere", context.scene, "hyperpresets", context.scene, "currentpreset")

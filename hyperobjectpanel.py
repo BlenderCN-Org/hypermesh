@@ -8,15 +8,14 @@ class HyperObjectPanel(bpy.types.Panel):
 
     @classmethod
     def poll(self, context):
+        if context.active_object is None:
+            return False
         if context.mode != 'OBJECT':
             return False
         ob = context.active_object
-        if not ob:
-            return False
         if ob.type != 'MESH':
             return False
-        me = ob.data
-        return me.hypersettings.hyper
+        return True
 
     def draw(self, context):
         me = context.active_object.data
@@ -25,19 +24,21 @@ class HyperObjectPanel(bpy.types.Panel):
         if not me.hypersettings.hyper:
             layout.operator("hyper.makehyper", text="Make hyper")
             return
-        row.prop(me.hypersettings, "perspective")
+        layout.template_list("preset_list", "notsurewhattoputhere", context.scene, "hyperpresets", context.scene, "currentpreset")
         row = layout.row()
-        row.prop(me.hypersettings, "viewcenter")
-        row = layout.row()
-        row.prop(me.hypersettings, "cameraoffset")
-        row = layout.row()
-        row.prop(me.hypersettings, "xvec")
-        row = layout.row()
-        row.prop(me.hypersettings, "yvec")
-        row = layout.row()
-        row.prop(me.hypersettings, "zvec")
-        row = layout.row(align=True)
-        row.operator('hyper.alignprojection', text='No W').axes = 'no W'
-        row.operator('hyper.alignprojection', text='No X').axes = 'no X'
-        row.operator('hyper.alignprojection', text='No Y').axes = 'no Y'
-        row.operator('hyper.alignprojection', text='No Z').axes = 'no Z'
+        row.prop(me.hypersettings, "preset")
+        #row = layout.row()
+        #row.prop(me.hypersettings, "viewcenter")
+        #row = layout.row()
+        #row.prop(me.hypersettings, "cameraoffset")
+        #row = layout.row()
+        #row.prop(me.hypersettings, "xvec")
+        #row = layout.row()
+        #row.prop(me.hypersettings, "yvec")
+        #row = layout.row()
+        #row.prop(me.hypersettings, "zvec")
+        #row = layout.row(align=True)
+        #row.operator('hyper.alignprojection', text='No W').axes = 'no W'
+        #row.operator('hyper.alignprojection', text='No X').axes = 'no X'
+        #row.operator('hyper.alignprojection', text='No Y').axes = 'no Y'
+        #row.operator('hyper.alignprojection', text='No Z').axes = 'no Z'

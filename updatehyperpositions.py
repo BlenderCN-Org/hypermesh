@@ -4,7 +4,8 @@ from hypermesh.projections import map4to4
 from mathutils import Vector
 
 def clean_mesh(me):
-    print("Cleaning {} (perspective is {})".format(me.name, me.hypersettings.perspective))
+    print("[hyper] cleaning {}".format(me.name))
+    h = bpy.context.scene.hyperpresets[me.hypersettings.preset]
     if me.is_editmode:
         bm = bmesh.from_edit_mesh(me)
     else:
@@ -16,7 +17,7 @@ def clean_mesh(me):
     layw = bm.verts.layers.float['hyperw']
     for v in bm.verts:
         old = Vector([v[layx], v[layy], v[layz], v[layw]])
-        newco = map4to4(me.hypersettings, v.co, old)
+        newco = map4to4(h, v.co, old)
         v[layx] = newco.x
         v[layy] = newco.y
         v[layz] = newco.z
@@ -25,7 +26,6 @@ def clean_mesh(me):
         bmesh.update_edit_mesh(me)
     else:
         bm.to_mesh(me)
-
 
 class UpdateHyperPositions(bpy.types.Operator):
     bl_idname = "hyper.update4"
