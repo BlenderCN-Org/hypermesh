@@ -8,9 +8,6 @@ class preset_list(bpy.types.UIList):
             # maybe we should make this something more compact
             layout.prop(item, "name", text="", emboss=False)
 
-def handle_preset_selected(self, context):
-    print("you selected preset {}".format(self))
-
 class HyperScenePanel(bpy.types.Panel):
     bl_space_type = "PROPERTIES"
     bl_region_type = "WINDOW"
@@ -24,8 +21,11 @@ class HyperScenePanel(bpy.types.Panel):
     def draw(self, context):
         layout = self.layout
         sc = context.scene
-        pr = sc.hyperpresets[sc.selectedpreset]
         layout.template_list("preset_list", "notsurewhattoputhere", sc, "hyperpresets", sc, "selectedpreset", type="DEFAULT")
+        if len(sc.hyperpresets) < 1:
+            return
+
+        pr = sc.hyperpresets[sc.selectedpreset]
         row = layout.row()
         row.prop(pr, "perspective")
         row = layout.row()

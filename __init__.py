@@ -12,7 +12,7 @@ if "bpy" in locals():
     importlib.reload(hypermesh.projections)
     importlib.reload(hypermesh.hypersettings)
     importlib.reload(hypermesh.makehyperoperator)
-    importlib.reload(hypermesh.hyperobjectpanel)
+    importlib.reload(hypermesh.hyperpresetpanel)
     importlib.reload(hypermesh.hypereditpanel)
     importlib.reload(hypermesh.hyperscenepanel)
     importlib.reload(hypermesh.updatehyperpositions)
@@ -21,7 +21,7 @@ else:
     import hypermesh.projections
     import hypermesh.hypersettings
     import hypermesh.makehyperoperator
-    import hypermesh.hyperobjectpanel
+    import hypermesh.hyperpresetpanel
     import hypermesh.hypereditpanel
     import hypermesh.hyperscenepanel
     import hypermesh.updatehyperpositions
@@ -29,7 +29,7 @@ else:
 
 from hypermesh.hypersettings import HyperSettings
 from hypermesh.makehyperoperator import MakeHyperOperator
-from hypermesh.hyperobjectpanel import HyperObjectPanel
+from hypermesh.hyperpresetpanel import HyperPresetPanel
 from hypermesh.hypereditpanel import HyperEditPanel
 from hypermesh.hyperscenepanel import HyperScenePanel
 from hypermesh.updatehyperpositions import UpdateHyperPositions
@@ -47,10 +47,8 @@ def handle_scene_changed(scene):
             try:
                 if me["justcleaned"]:
                     me["justcleaned"] = False
-                    print("[hyper] {} marked not-just-cleaned ({})".format(me.name, random.random()))
                 else:
                     me["hyperdirty"] = True
-                    print("[hyper] {} marked dirty ({})".format(me.name, random.random()))
             except KeyError:
                 continue
 
