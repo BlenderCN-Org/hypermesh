@@ -75,23 +75,33 @@ class HyperPreset(bpy.types.PropertyGroup):
     viewcenter = bpy.props.FloatVectorProperty(name="View center",
             size=4,
             description="The point in 4-space at the origin of the image plane",
-            default=(0.0, 0.0, 0.0, 0.0))
+            get=(lambda x: get_preset_property(x, "viewcenter", (0.0, 0.0, 0.0, 0.0))),
+            set=(lambda x, y: set_preset_property(x, "viewcenter", y)),
+            subtype='QUATERNION')
     cameraoffset = bpy.props.FloatVectorProperty(name="Camera offset",
             size=4,
             description="Vector from the view center to the camera position",
-            default=(-4.0,0.0,0.0,0.0))
+            get=(lambda x: get_preset_property(x, "cameraoffset", (-4.0,0.0,0.0,0.0))),
+            set=(lambda x, y: set_preset_property(x, "cameraoffset", y)),
+            subtype='QUATERNION')
     xvec = bpy.props.FloatVectorProperty(name="X vector",
             size=4,
             description="Vector in image plane such that (view center + X vector) is mapped to (1,0,0)",
-            default=(0.0, 1.0, 0.0, 0.0))
+            get=(lambda x: get_preset_property(x, "xvec", (0.0, 1.0, 0.0, 0.0))),
+            set=(lambda x, y: set_preset_property(x, "xvec", y)),
+            subtype='QUATERNION')
     yvec = bpy.props.FloatVectorProperty(name="Y vector",
             size=4,
             description="Vector in image plane such that (view center + Y vector) is mapped to (0,1,0)",
-            default=(0.0, 0.0, 1.0, 0.0))
+            get=(lambda x: get_preset_property(x, "yvec", (0.0, 0.0, 1.0, 0.0))),
+            set=(lambda x, y: set_preset_property(x, "yvec", y)),
+            subtype='QUATERNION')
     zvec = bpy.props.FloatVectorProperty(name="Z vector",
             size=4,
             description="Vector in image plane such that (view center + Z vector) is mapped to (0,0,1)",
-            default=(0.0, 0.0, 0.0, 1.0))
+            get=(lambda x: get_preset_property(x, "zvec", (0.0, 0.0, 0.0, 1.0))),
+            set=(lambda x, y: set_preset_property(x, "zvec", y)),
+            subtype='QUATERNION')
 
 # set a hyperpreset to a builtin preset
 # what is meant by builtin? Well, anything that's given by this function...

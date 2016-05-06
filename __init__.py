@@ -60,12 +60,12 @@ def register():
     print("Module registered.")
     bpy.types.Mesh.hypersettings = bpy.props.PointerProperty(type=HyperSettings)
     bpy.types.Scene.hyperpresets = bpy.props.CollectionProperty(type=HyperPreset)
-    bpy.types.Scene.currentpreset = bpy.props.IntProperty(name="current_preset")
+    bpy.types.Scene.selectedpreset = bpy.props.IntProperty(options={'HIDDEN', 'SKIP_SAVE'})
     bpy.app.handlers.scene_update_post.append(handle_scene_changed)
 
 def unregister():
     bpy.app.handlers.scene_update_post.remove(handle_scene_changed)
-    del bpy.types.Scene.currentpreset
+    del bpy.types.Scene.selectedpreset
     del bpy.types.Scene.hyperpresets
     del bpy.types.Mesh.hypersettings
     bpy.utils.unregister_module(__name__)
