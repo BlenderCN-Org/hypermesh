@@ -40,7 +40,9 @@ def set_preset(self, value):
             continue
         if not me.hypersettings == self:
             continue
-        project_to_3d(me)
+        me["hyperdirty"] = False
+        me["justcleaned"] = True
+        project_to_3d(me) #this will trigger handle_scene_changed
 
 class HyperSettings(bpy.types.PropertyGroup):
     hyper = bpy.props.BoolProperty(name="Hyper",

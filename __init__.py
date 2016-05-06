@@ -45,8 +45,12 @@ def handle_scene_changed(scene):
             if not me.hypersettings.hyper:
                 continue
             try:
-                me["hyperdirty"] = True
-                print("[hyper] {} marked dirty ({})".format(me.name, random.random()))
+                if me["justcleaned"]:
+                    me["justcleaned"] = False
+                    print("[hyper] {} marked not-just-cleaned ({})".format(me.name, random.random()))
+                else:
+                    me["hyperdirty"] = True
+                    print("[hyper] {} marked dirty ({})".format(me.name, random.random()))
             except KeyError:
                 continue
 

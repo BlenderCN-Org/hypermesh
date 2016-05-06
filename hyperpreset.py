@@ -43,28 +43,26 @@ def find_dirty_meshes_with_given_hyperpreset(pr):
             meshes.append(me)
     return meshes
 
-def get_perspective(self):
+def get_preset_property(self, prop, default):
     try:
-        return self["perspective"]
+        return self[prop]
     except KeyError:
-        self["perspective"] = False
-        return self["perspective"]
+        self[prop] = default
+        return self[prop]
 
-def set_perspective(self, value):
-    print('enter set_perspective')
+def set_preset_property(self, prop, value):
     dirties = find_dirty_meshes_with_given_hyperpreset(self)
     for me in dirties:
         clean_mesh(me)
-    self["perspective"] = value
+    self[prop] = value
     for me in bpy.data.meshes:
         if not me.hypersettings.hyper:
             continue
         if not bpy.context.scene.hyperpresets[me.hypersettings.preset] == self:
             continue
-        print('projecting right after this')
-        project_to_3d(me)
-        me["hyperdirty"] = False #important
-    print('exit set_perspective')
+        me["hyperdirty"] = False
+        me["justcleaned"] = True
+        project_to_3d(me) #this will trigger handle_scene_changed
 
 class HyperPreset(bpy.types.PropertyGroup):
     name = bpy.props.StringProperty(name="Name",
@@ -72,8 +70,8 @@ class HyperPreset(bpy.types.PropertyGroup):
             default="AwesomeProjection")
     perspective = bpy.props.BoolProperty(name="Perspective",
             description="Use perspective when mapping to 3-space",
-            get=get_perspective,
-            set=set_perspective)
+            get=(lambda x: get_preset_property(x, "perspective", False)),
+            set=(lambda x, y: set_preset_property(x, "perspective", y)))
     viewcenter = bpy.props.FloatVectorProperty(name="View center",
             size=4,
             description="The point in 4-space at the origin of the image plane",

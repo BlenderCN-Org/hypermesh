@@ -23,6 +23,7 @@ class MakeHyperOperator(bpy.types.Operator):
         me = context.active_object.data
         me.hypersettings.hyper = True
         me["hyperdirty"] = True
+        me["justcleaned"] = False
         bm = bmesh.new()
         bm.from_mesh(me)
         bm.verts.layers.float.new('hyperx')

@@ -6,7 +6,7 @@ import numpy
 #                 a,b for points in 3-space
 
 
-# input is a HyperSettings object, and a Vector
+# input is a HyperPreset object, and a Vector
 def map4to3(h, p):
     if h.perspective:
         direction = p - Vector(h.viewcenter) - Vector(h.cameraoffset)
@@ -21,7 +21,7 @@ def map4to3(h, p):
     result = result[:3]
     return Vector(result)
 
-# input is a HyperSettings object, and a Vector
+# input is a HyperPreset object, and a Vector
 def map3to4(h, a):
     vc = Vector(h.viewcenter)
     xv = Vector(h.xvec)
@@ -29,7 +29,7 @@ def map3to4(h, a):
     zv = Vector(h.zvec)
     return vc + a.x * xv + a.y * yv + a.z * zv
 
-# input is a HyperSettings object, the 3-dimensional position
+# input is a HyperPreset object, the 3-dimensional position
 # and the previous 4-dimensional position
 # TODO: write this
 def map4to4(h, a, p):
