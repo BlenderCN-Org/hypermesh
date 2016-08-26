@@ -31,7 +31,6 @@ def map3to4(h, a):
 
 # input is a HyperPreset object, the 3-dimensional position
 # and the previous 4-dimensional position
-# TODO: write this
 def map4to4(h, a, p):
     a4 = map3to4(h, a)
     q = map3to4(h, map4to3(h, p))
