@@ -7,36 +7,36 @@ bl_info = {
     "category": "Mesh"
 }
 
-if "bpy" in locals():
+if "bpy" in locals(): #we're reloading
     import importlib
-    importlib.reload(hypermesh.projections)
-    importlib.reload(hypermesh.hypersettings)
-    importlib.reload(hypermesh.makehyperoperator)
-    importlib.reload(hypermesh.hyperpresetpanel)
-    importlib.reload(hypermesh.hypereditpanel)
-    importlib.reload(hypermesh.hyperscenepanel)
-    importlib.reload(hypermesh.updatehyperpositions)
-    importlib.reload(hypermesh.hyperpreset)
+    importlib.reload(projections)
+    importlib.reload(hypersettings)
+    importlib.reload(makehyperoperator)
+    importlib.reload(hyperpresetpanel)
+    importlib.reload(hypereditpanel)
+    importlib.reload(hyperscenepanel)
+    importlib.reload(updatehyperpositions)
+    importlib.reload(hyperpreset)
 else:
-    import hypermesh.projections
-    import hypermesh.hypersettings
-    import hypermesh.makehyperoperator
-    import hypermesh.hyperpresetpanel
-    import hypermesh.hypereditpanel
-    import hypermesh.hyperscenepanel
-    import hypermesh.updatehyperpositions
-    import hypermesh.hyperpreset
+    from . import hypersettings
+    from . import makehyperoperator
+    from . import hyperpresetpanel
+    from . import hypereditpanel
+    from . import hyperscenepanel
+    from . import updatehyperpositions
+    from . import hyperpreset
 
-from hypermesh.hypersettings import HyperSettings
-from hypermesh.makehyperoperator import MakeHyperOperator
-from hypermesh.hyperpresetpanel import HyperPresetPanel
-from hypermesh.hypereditpanel import HyperEditPanel
-from hypermesh.hyperscenepanel import HyperScenePanel
-from hypermesh.updatehyperpositions import UpdateHyperPositions
-from hypermesh.hyperpreset import HyperPreset
+from .hypersettings import HyperSettings
+from .makehyperoperator import MakeHyperOperator
+from .hyperpresetpanel import HyperPresetPanel
+from .hypereditpanel import HyperEditPanel
+from .hyperscenepanel import HyperScenePanel
+from .updatehyperpositions import UpdateHyperPositions
+from .hyperpreset import HyperPreset
 
 import bpy
 import random
+import sys
 
 @bpy.app.handlers.persistent
 def handle_scene_changed(scene):
@@ -53,9 +53,11 @@ def handle_scene_changed(scene):
                 continue
 
 def register():
-    print("Registering!")
+    print("Registering hypermesh addon... ", end="")
+    sys.stdout.flush()
     bpy.utils.register_module(__name__)
-    print("Module registered.")
+    print("done.")
+
     bpy.types.Mesh.hypersettings = bpy.props.PointerProperty(type=HyperSettings)
     bpy.types.Scene.hyperpresets = bpy.props.CollectionProperty(type=HyperPreset)
     bpy.types.Scene.selectedpreset = bpy.props.IntProperty(options={'HIDDEN', 'SKIP_SAVE'})
@@ -67,7 +69,7 @@ def unregister():
     del bpy.types.Scene.hyperpresets
     del bpy.types.Mesh.hypersettings
     bpy.utils.unregister_module(__name__)
-    print("Unregistered!")
+    print("Unregistered hypermesh addon.")
 
 if __name__ == "__main__":
     register()
