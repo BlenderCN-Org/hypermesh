@@ -67,6 +67,9 @@ The following parameters describe a projection:
    (missing from the picture because there's a dimension missing)
  - `Perspective`: whether to project using perspective or not
 
+In the picture above, the white point gets mapped to about (0.4, -0.2) in the perspective case,
+and to about (0.8, -0.3) in the non-perspective case.
+
 
 ### Updating hyperposition after mesh edit
 
