@@ -20,5 +20,6 @@ if __name__ == "__main__":
     print("You can install the addon in Blender using")
     print("   File -> User Preferences... -> Install from File...")
     print("and selecting hypermesh.zip from this folder.")
+    print("Afterwards, enable it in the user preferences.")
 
 
