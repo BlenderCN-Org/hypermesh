@@ -9,6 +9,10 @@ It is intended for anybody who wants to _use_ the hypermesh addon.
 If you want to understand (or work on) the code, please read this document and also the
 file `internals.md`.
 
+## Installation
+
+To install the addon
+
 
 ## Math
 
