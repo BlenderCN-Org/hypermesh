@@ -115,11 +115,4 @@ Operator that updates the 4-dimensional positions of a mesh's vertices on demand
 It should never be necessary to call this operator, but it might be useful in some instances.
 
 
-## Math
-
-### Projections
-
-### Updating of 4-coordinates
-
-
 
