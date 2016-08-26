@@ -16,7 +16,8 @@ There are two ways of installing the addon:
  - The recommended option is to download/clone the repository, and run the script `package.py`.
    This will zip up the contents of the `addon` folder into a file called `hypermesh.zip`
    (and do some useful renaming).
-   You can then install the addon using Blender's `File -> User Preferences... -> Install from File...`.
+   You can then install the addon using Blender's `File -> User Preferences... -> Install from File...`
+   and picking the generated zip-file.
 
  - Alternatively, you can manually copy the addon into the Blender addons folder.
    To find out where it is located on your system, [consult Blender's documentation](https://www.blender.org/manual/getting_started/installing/configuration/directories.html).
