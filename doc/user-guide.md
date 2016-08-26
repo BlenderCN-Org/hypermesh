@@ -11,7 +11,26 @@ file `internals.md`.
 
 ## Installation
 
-To install the addon
+There are two ways of installing the addon:
+
+ - The recommended option is to download/clone the repository, and run the script `package.py`.
+   This will zip up the contents of the `addon` folder into a file called `hypermesh.zip`
+   (and do some useful renaming).
+   You can then install the addon using Blender's `File -> User Preferences... -> Install from File...`.
+
+ - Alternatively, you can manually copy the addon into the Blender addons folder.
+   To find out where it is located on your system, [consult Blender's documentation](https://www.blender.org/manual/getting_started/installing/configuration/directories.html).
+   Most likely, it is `[Blender config directory]/scripts/addons/`.
+
+   Make sure the addon gets its own folder.
+   The recommended name for the addon's folder is `hypermesh`,
+   so that you get files `[Blender config directory]/scripts/addons/hypermesh/__init__.py`
+   and so on.
+
+Don't forget to also _enable_ the addon in the user settings.
+
+To remove the addon, you can use the _Remove_ button in Blender's user preferences,
+or just delete the directory that the addon was installed in (typically `[Blender config directory]/scripts/addons/hypermesh/`).
 
 
 ## Math
