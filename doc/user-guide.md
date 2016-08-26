@@ -1,4 +1,4 @@
-# Using the hypermesh addon
+# Hypermesh addon user guide
 
 The Blender hypermesh addon allows the manipulation of meshes in 4-dimensional Euclidean space.
 This is achieved by using ordinary Blender tools to manipulate _projections_ of this 4-mesh
@@ -30,7 +30,7 @@ These meshes have
 This is just like an ordinary Blender mesh, except that vertices have 4 coordinates.
 The addon does **not** handle hyperfaces, 3-dimensional faces of 4-dimensional meshes.
 (Such hyperfaces would overlap after projection to 3-space. There are
-currently no plans to every support hyperfaces.)
+currently no plans to ever support hyperfaces.)
 
 A hypermesh is visualized in the 3D view by _projecting_ it to 3-dimensional Euclidean
 space (the same way that 3-dimensional objects in the viewport are visualized by projecting
@@ -73,10 +73,18 @@ and to about (0.8, -0.3) in the non-perspective case.
 
 ### Updating hyperposition after mesh edit
 
+When the hyperposition of a vertex is changed, it is re-projected and the 3D view shows
+the updated projection.
+This is straightforward.
+However, when the _projection_ of the vertex is manipulated, updating its hyperposition
+is ambiguous: there are infinitely many points in 4-space that project to the given point.
+To resolve this ambiguity, the addon does the following: _when a vertex is moved in 3-space,
+the underlying point in 4-space moves **parallel** to the projection 3-space_.
 
 
+## Using the addon
 
-## Creating a hypermesh
+### Creating a hypermesh
 
 By default, the addon does not affect any of Blender's mesh operations.
 Only the meshes that are explicitly marked as _hypermeshes_ will be treated by the addon.
