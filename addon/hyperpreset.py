@@ -1,7 +1,7 @@
 import bpy
 import bmesh
-from hypermesh.updatehyperpositions import clean_mesh
-from hypermesh.projections import map4to3
+from .updatehyperpositions import clean_mesh
+from .projections import map4to3
 from mathutils import Vector
 
 def project_to_3d(me):

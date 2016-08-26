@@ -1,9 +1,9 @@
 import bpy
 import bmesh
 from mathutils import Vector
-from hypermesh.projections import map4to3
-from hypermesh.updatehyperpositions import clean_mesh
-from hypermesh.hyperpreset import project_to_3d
+from .projections import map4to3
+from .updatehyperpositions import clean_mesh
+from .hyperpreset import project_to_3d
 
 def find_dirty_meshes_with_given_hypersettings(h):
     meshes = []

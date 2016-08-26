@@ -1,7 +1,7 @@
 import bpy
 import bmesh
-from hypermesh.projections import map3to4
-from hypermesh.hyperpreset import add_presets_to_scene
+from .projections import map3to4
+from .hyperpreset import add_presets_to_scene
 from mathutils import Vector
 
 class MakeHyperOperator(bpy.types.Operator):

@@ -1,6 +1,6 @@
 import bpy
 import bmesh
-from hypermesh.projections import map4to4
+from .projections import map4to4
 from mathutils import Vector
 
 def clean_mesh(me):
