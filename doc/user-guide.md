@@ -165,3 +165,8 @@ If you want to force an update of the hypercoordinates, use the `Update hypercoo
 (`<spacebar> -> Update hypercoordinates`).
 Note that this is necessary in order for the panel _Hypercoordinates_ to show the correct coordinates (!).
 
+If you are not interested in precise hypercoordinates, it is not necessary to call the
+`Update hypercoordinates` operator. For example, when you change a hypermesh's projection,
+the hypercoordinates are recalculated automatically before the hypermesh is projected using
+the new projection.
+
