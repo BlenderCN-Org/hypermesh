@@ -3,13 +3,13 @@ title: "Hypermesh: internals"
 layout: default
 ---
 
-# Internal workings of the hypermesh addon
+# Hypermesh: Technical Documentation
 
 The Blender hypermesh addon allows the manipulation of meshes in 4-dimensional Euclidean space.
 This is achieved by using ordinary Blender tools to manipulate _projections_ of this 4-mesh
 to 3-dimensional Euclidean space.
 
-This document described the internal working of the hypermesh addon.
+This document described the internal workings of the hypermesh addon.
 It is not intended for end users, but as a document to help in understanding the code.
 
 {::options toc_levels="2..6" /}

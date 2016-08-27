@@ -3,7 +3,7 @@ title: "Hypermesh: User Guide"
 layout: default
 ---
 
-# Hypermesh addon user guide
+# Hypermesh: User Guide
 
 The Blender hypermesh addon allows the manipulation of meshes in 4-dimensional Euclidean space.
 This is achieved by using ordinary Blender tools to manipulate _projections_ of this 4-mesh
@@ -11,8 +11,8 @@ to 3-dimensional Euclidean space.
 
 This is the user guide for the addon.
 It is intended for anybody who wants to _use_ the hypermesh addon.
-If you want to understand (or work on) the code, please read this document and also the
-file `internals.md`.
+If you want to understand (or work on) the code, please read this document and also
+[the document explaining the internals of the addon]({{ site.baseurl }}/internals).
 
 {::options toc_levels="2..6" /}
 * this is where the TOC will be
@@ -72,7 +72,9 @@ and then to 2-space, and that's what you see).
 
 The following picture illustrates such a projection.
 
-![Projecting a point from 3-space to 2-space.](images/projection.png?raw=true)
+<p align="center">
+    <img align="center" src="images/projection.png" alt="Projecting a point from 3-space to 2-space." />
+</p>
 
 The 3-dimensional space is projected to the 2-dimensional space represented by the semi-transparent plane.
 At the center of this plane is a black dot known as the _view center_.

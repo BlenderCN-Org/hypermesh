@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ page.title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i|Roboto" rel="stylesheet" />
+    <link href="{{ site.baseurl }}/css/default.css" rel="stylesheet" />
 </head>
 
 <body>
+{% include menu.md %}
 {{ content }}
 </body>
 
