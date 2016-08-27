@@ -1,3 +1,8 @@
+---
+title: "Hypermesh: internals"
+layout: default
+---
+
 # Internal workings of the hypermesh addon
 
 The Blender hypermesh addon allows the manipulation of meshes in 4-dimensional Euclidean space.

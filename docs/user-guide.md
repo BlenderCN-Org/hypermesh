@@ -1,3 +1,8 @@
+---
+title: "Hypermesh: User Guide"
+layout: default
+---
+
 # Hypermesh addon user guide
 
 The Blender hypermesh addon allows the manipulation of meshes in 4-dimensional Euclidean space.
@@ -63,7 +68,7 @@ and then to 2-space, and that's what you see).
 
 The following picture illustrates such a projection.
 
-![Projecting a point from 3-space to 2-space.](projection.png?raw=true)
+![Projecting a point from 3-space to 2-space.](images/projection.png?raw=true)
 
 The 3-dimensional space is projected to the 2-dimensional space represented by the semi-transparent plane.
 At the center of this plane is a black dot known as the _view center_.
@@ -150,15 +155,15 @@ Now that you have created a hypermesh, new panels appear in the UI:
    Please read the subsection _Updating the hypercoordinates_ before using this panel.
 
 <p align="center">
-    <img align="center" src="hypermesh_projections.png" alt="The Hypermesh projections panel, showing the default No Y projection." />
+    <img align="center" src="images/hypermesh_projections.png" alt="The Hypermesh projections panel, showing the default No Y projection." />
 </p>
 
 <p align="center">
-    <img align="center" src="select_projection.png" alt="The Select projection panel." />
+    <img align="center" src="images/select_projection.png" alt="The Select projection panel." />
 </p>
 
 <p align="center">
-    <img align="center" src="hypercoordinates.png" alt="The Hypercoordinates panel." />
+    <img align="center" src="images/hypercoordinates.png" alt="The Hypercoordinates panel." />
 </p>
 
 

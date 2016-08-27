@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Hypermesh: internals</title>
+</head>
+
+<body>
+<h1 id="internal-workings-of-the-hypermesh-addon">Internal workings of the hypermesh addon</h1>
+
+<p>The Blender hypermesh addon allows the manipulation of meshes in 4-dimensional Euclidean space.
+This is achieved by using ordinary Blender tools to manipulate <em>projections</em> of this 4-mesh
+to 3-dimensional Euclidean space.</p>
+
+<p>This document described the internal working of the hypermesh addon.
+It is not intended for end users, but as a document to help in understanding the code.</p>
+
+<h2 id="overview">Overview</h2>
+
+<p>When the hypermesh plugin is loaded, the following extra information is kept track of:</p>
+
+<ul>
+  <li>Every scene holds a list of projections from 4-space to 3-space.</li>
+  <li>Every mesh holds a <code>HyperSettings</code> object, which keeps track of
+    <ul>
+      <li>whether the mesh is a 4-mesh (<em>hypermesh</em>) or an ordinary mesh (unaffected by the addon),</li>
+      <li>which projection from the scene’s list is currently in use for this mesh.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>When a mesh is turned into a hypermesh (by the <code>MakeHyperOperator</code>),
+or when a hypermesh is inserted directly,
+the Bmesh data underlying it contains 4 extra layers of floating point vertex information.
+These layers are called <code>hyperx</code>, <code>hypery</code>, <code>hyperz</code>, <code>hyperw</code>, and they contain the
+coordinates of the vertex in 4-space.</p>
+
+<p>Of course, the ordinary 3-coordinates are related to these 4 hypercoordinates by means
+of the projection used.
+To ensure that this relation is maintained at all times, the following actions have to be undertaken:</p>
+
+<ul>
+  <li>when a vertex is moved in 3-space (standard Blender edit mode),
+its coordinates in 4-space should be updated</li>
+  <li>when a vertex is moved in 4-space (entering straight into a box provided by the addon),
+its coordinates in 3-space should be updated</li>
+  <li>when the projection is changed,
+its coordinates in 3-space should be updated</li>
+</ul>
+
+<p>It should be noted that this is <strong>not</strong> what the addon does.
+For performance reasons, it doesn’t update the 4-coordinates automatically
+whenever the 3-coordinates change. Rather, it marks the 4-coordinates as needing
+an update by setting the mesh’s <code>hypermesh-dirty</code> property to <code>True</code>.
+Then whenever the 4-coordinates are needed (for example, when the 3-coordinates need to be
+updated based on their value, or when they need to be shown in the UI),
+they are updated (and <code>hypermesh-dirty</code> is set to <code>False</code>).</p>
+
+<p>These are the essential workings of the addon.</p>
+
+<h2 id="file-structure">File structure</h2>
+
+<h3 id="initpy">__init__.py</h3>
+
+<p>The starting point of the plugin.
+It does the following things:</p>
+
+<ul>
+  <li>populates <code>bl_info</code>, which is read by Blender to provide information about the plugin,</li>
+  <li>(re)imports the other files</li>
+  <li>(un)registers the addon’s classes (such as Operators, Properties) with Blender</li>
+  <li>defines and registers a callback handler for <code>scene_update_post</code>; this is used to detect when a
+mesh has been edited</li>
+</ul>
+
+<p>When a mesh has been edited in such a way that its 4-coordinates are no longer valid,
+the mesh’s <code>hypermesh-dirty</code> property should be set to <code>True</code>.
+To achieve this, the code that updates 4-coordinates sets the mesh’s <code>hypermesh-justcleaned</code> property,
+indicating that an update has happened but the 4-coordinates are not dirty.</p>
+
+<h3 id="hypereditpanelpy">hypereditpanel.py</h3>
+
+<p>The UI panel that is visible when editing a mesh (edit mode in the 3D view).</p>
+
+<h3 id="hyperpresetpy">hyperpreset.py</h3>
+
+<p>A <code>HyperPreset</code> is a <code>PropertyGroup</code> that contains the information defining a projection from 4-space
+to 3-space.
+(It’s a list of these that the scene keeps track of.)
+It also contains code that handles projection changes (by updating all meshes that use this projection).
+Finally, it contains code that defines several standard projections from 4-space to 3-space.
+These are projections that are probably useful in manipulating 4-meshes.</p>
+
+<h3 id="hyperpresetpanelpy">hyperpresetpanel.py</h3>
+
+<p>Panel that is shown when a mesh is selected to pick which projection to use.
+Selecting a projection here sets the selected object’s projection.</p>
+
+<h3 id="hyperscenepanelpy">hyperscenepanel.py</h3>
+
+<p>Panel that is shown in the scene’s properties listing all the projections
+that exist in the scene.
+Allows editing of projections.</p>
+
+<h3 id="hypersettingspy">hypersettings.py</h3>
+
+<p>A <code>HyperSettings</code> object is a <code>PropertyGroup</code> that is associated to each mesh,
+indicating whether the mesh is a hypermesh, and which projection is in use.
+Also contains code to update a mesh when a different projection is picked.</p>
+
+<h3 id="inserthypercubeoperatorpy">inserthypercubeoperator.py</h3>
+
+<p>Operator that inserts a hypercube into the scene.</p>
+
+<h3 id="makehyperoperatorpy">makehyperoperator.py</h3>
+
+<p>Operator that turns an existing mesh into a hypermesh.</p>
+
+<h3 id="projectionspy">projections.py</h3>
+
+<p>This file contains the mathematical transformations relating 3-space to 4-space.</p>
+
+<h3 id="updatehyperpositionspy">updatehyperpositions.py</h3>
+
+<p>Operator that updates the 4-dimensional positions of a mesh’s vertices on demand.
+Call this operator if you want to see the correct hypercoordinates of your selection
+in edit mode.</p>
+
+<h2 id="wheres-the-data">Where’s the data?</h2>
+
+<p>The addon stores several pieces of data when in use (hypercoordinates, presets, …).
+The following provides an overview of all these pieces of data.</p>
+
+<h3 id="data-associated-to-meshes">Data associated to meshes</h3>
+
+<p>The following pieces of information are stored for meshes:</p>
+
+<ul>
+  <li>for every mesh, a <code>HyperSettings</code> object (called <code>me.hypersettings</code> where <code>me</code> is the mesh)</li>
+  <li>for every hypermesh, four extra layers of floating point information per vertex (<code>hyperx</code>,
+<code>hypery</code>, <code>hyperz</code>, <code>hyperw</code>); these can be accessed from the mesh’s Bmesh data</li>
+  <li>for every hypermesh, booleans <code>me["hypermesh-dirty"]</code> and <code>me["hypermesh-justcleaned"]</code>
+for keeping track of whether hypercoordinates need to be updated (where <code>me</code> is the mesh)</li>
+</ul>
+
+<p>About storage in the <code>.blend</code>:
+as far as I can tell, no <code>HyperSettings</code> object is written to the <code>.blend</code> unless
+it is set at some point in time. For non-hyper-meshes, the <code>HyperSettings</code> are never written
+to (they stay at the default), so I don’t think that these meshes take up extra space in the
+<code>.blend</code> when the addon is enabled.</p>
+
+<h3 id="data-associated-to-scenes">Data associated to scenes</h3>
+
+<p>The following pieces of information are stored for scenes:</p>
+
+<ul>
+  <li>for each scene, a collection of <code>HyperPreset</code>s (called <code>sc.hyperpresets</code> where <code>sc</code> is the scene)</li>
+  <li>for each scene, an <code>IntProperty</code> called <code>sc.selectedpreset</code>; it indicates which preset is currently
+selected in the scene’s properties; this property is not written to the <code>.blend</code></li>
+</ul>
+
+
+</body>
+
+</html>
