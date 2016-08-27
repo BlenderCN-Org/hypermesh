@@ -16,7 +16,7 @@
 import bpy
 import bmesh
 from .projections import map3to4
-from .hyperpreset import add_presets_to_scene
+from .hyperpreset import ensure_scene_is_hyper
 from mathutils import Vector
 
 class MakeHyperOperator(bpy.types.Operator):
@@ -46,6 +46,6 @@ class MakeHyperOperator(bpy.types.Operator):
         bm.verts.layers.float.new('hyperz')
         bm.verts.layers.float.new('hyperw')
         bm.to_mesh(me)
-        add_presets_to_scene(context)
+        ensure_scene_is_hyper(context)
         return {'FINISHED'}
 
