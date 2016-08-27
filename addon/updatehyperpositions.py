@@ -28,7 +28,7 @@ def clean_mesh(me):
 
 class UpdateHyperPositions(bpy.types.Operator):
     bl_idname = "hyper.update4"
-    bl_label = "Update hyperpositions"
+    bl_label = "Update hypercoordinates"
 
     @classmethod
     def poll(cls, context):

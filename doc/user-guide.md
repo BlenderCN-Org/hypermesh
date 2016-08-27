@@ -142,6 +142,7 @@ Now that you have created a hypermesh, new panels appear in the UI:
  - In the 3D View when editing a hypermesh (`<tab>` for edit mode), a panel called
    _Hypercoordinates_ shows the average of the positions of all selected vertices
    in 4-space.
+   Please read the subsection _Updating the hypercoordinates_ before using this panel.
 
 <p align="center">
     <img align="center" src="hypermesh_projections.png" alt="The Hypermesh projections panel, showing the default No Y projection." />
@@ -154,4 +155,13 @@ Now that you have created a hypermesh, new panels appear in the UI:
 <p align="center">
     <img align="center" src="hypercoordinates.png" alt="The Hypercoordinates panel." />
 </p>
+
+
+### Updating the hypercoordinates
+
+When the 3-dimensional projection of a hypermesh is manipulated,
+the hypercoordinates of the vertices are not automatically updated (for performance reasons).
+If you want to force an update of the hypercoordinates, use the `Update hypercoordinates` operator
+(`<spacebar> -> Update hypercoordinates`).
+Note that this is necessary in order for the panel _Hypercoordinates_ to show the correct coordinates (!).
 
