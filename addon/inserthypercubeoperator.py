@@ -79,7 +79,7 @@ class InsertHyperCubeOperator(bpy.types.Operator):
         ob.select = True
 
         # triggers a projection to 3D
-        me.hypersettings.preset = 0
+        me.hypersettings.preset = sc.selectedpreset
 
         return {'FINISHED'}
 
