@@ -21,6 +21,9 @@ from .hyperpreset import ensure_scene_is_hyper
 class InsertHyperCubeOperator(bpy.types.Operator):
     bl_idname = "hyper.inserthypercube"
     bl_label = "Insert hypercube"
+    bl_options = {'REGISTER', 'UNDO'}
+
+    add_faces = bpy.props.BoolProperty(name="Add faces")
 
     @classmethod
     def poll(cls, context):
@@ -51,11 +54,22 @@ class InsertHyperCubeOperator(bpy.types.Operator):
 
         bm.verts.ensure_lookup_table()
 
+        bits = [0x01, 0x02, 0x04, 0x08]
         for i in range(16):
-            for j in [0x01, 0x02, 0x04, 0x08]:
+            for j in bits:
                 k = i | j
                 if k != i:
                     bm.edges.new((bm.verts[i], bm.verts[k]))
+
+        if self.add_faces:
+            print("adding faces")
+            for i in range(16):
+                for j in range(4):
+                    for k in range(j+1, 4):
+                        if (i & bits[j]) or (i & bits[k]):
+                            continue
+                        bm.faces.new((bm.verts[i], bm.verts[i | bits[j]], bm.verts[i | bits[j] | bits[k]], bm.verts[i | bits[k]]))
+
 
         bm.to_mesh(me)
 
