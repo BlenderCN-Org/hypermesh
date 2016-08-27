@@ -13,8 +13,26 @@ body, html {
 	position: relative;
 }
 
+ul.menu {
+	text-align: center;
+	margin: 0;
+	padding: 0;
+}
+li.menuitem {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0 1em;
+	list-style-type: none;
+	display: inline-block;
+}
+
 h1, h2, h3, h4, h5 {
 	font-family: 'Roboto', sans-serif;
+}
+
+h1, h2, h3, h4, h5, p, li {
+	padding-left: 0.2em;
+	padding-right: 0.2em;
 }
 
 code {
