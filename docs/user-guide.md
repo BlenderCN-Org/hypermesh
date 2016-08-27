@@ -14,6 +14,10 @@ It is intended for anybody who wants to _use_ the hypermesh addon.
 If you want to understand (or work on) the code, please read this document and also the
 file `internals.md`.
 
+{::options toc_levels="2..6" /}
+* this is where the TOC will be
+{:toc}
+
 ## Installation
 
 There are two ways of installing the addon:

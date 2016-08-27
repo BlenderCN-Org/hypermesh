@@ -12,6 +12,9 @@ to 3-dimensional Euclidean space.
 This document described the internal working of the hypermesh addon.
 It is not intended for end users, but as a document to help in understanding the code.
 
+{::options toc_levels="2..6" /}
+* this is where the TOC will be
+{:toc}
 
 ## Overview
 
