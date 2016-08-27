@@ -47,7 +47,7 @@ These are the essential workings of the addon.
 
 ## File structure
 
-### __init__.py
+### \_\_init\_\_.py
 
 The starting point of the plugin.
 It does the following things:
@@ -113,6 +113,38 @@ This file contains the mathematical transformations relating 3-space to 4-space.
 
 Operator that updates the 4-dimensional positions of a mesh's vertices on demand.
 It should never be necessary to call this operator, but it might be useful in some instances.
+
+
+## Where's the data?
+
+The addon stores several pieces of data when in use (hypercoordinates, presets, ...).
+The following provides an overview of all these pieces of data.
+
+
+### Data associated to meshes
+
+The following pieces of information are stored for meshes:
+
+ - for every mesh, a `HyperSettings` object (called `me.hypersettings` where `me` is the mesh)
+ - for every hypermesh, four extra layers of floating point information per vertex (`hyperx`,
+   `hypery`, `hyperz`, `hyperw`); these can be accessed from the mesh's Bmesh data
+ - for every hypermesh, booleans `me["hypermesh-dirty"]` and `me["hypermesh-justcleaned"]`
+   for keeping track of whether hypercoordinates need to be updated (where `me` is the mesh)
+
+About storage in the `.blend`:
+as far as I can tell, no `HyperSettings` object is written to the `.blend` unless
+it is set at some point in time. For non-hyper-meshes, the `HyperSettings` are never written
+to (they stay at the default), so I don't think that these meshes take up extra space in the
+`.blend` when the addon is enabled.
+
+
+### Data associated to scenes
+
+The following pieces of information are stored for scenes:
+
+ - for each scene, a collection of `HyperPreset`s (called `sc.hyperpresets` where `sc` is the scene)
+ - for each scene, an `IntProperty` called `sc.selectedpreset`; it indicates which preset is currently
+   selected in the scene's properties; this property is not written to the `.blend`
 
 
 
