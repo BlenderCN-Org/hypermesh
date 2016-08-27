@@ -32,6 +32,7 @@ if "bpy" in locals(): #we're reloading
     importlib.reload(hyperscenepanel)
     importlib.reload(updatehyperpositions)
     importlib.reload(hyperpreset)
+    importlib.reload(inserthypercubeoperator)
 else:
     from . import hypersettings
     from . import makehyperoperator
@@ -40,6 +41,7 @@ else:
     from . import hyperscenepanel
     from . import updatehyperpositions
     from . import hyperpreset
+    from . import inserthypercubeoperator
 
 from .hypersettings import HyperSettings
 from .makehyperoperator import MakeHyperOperator
@@ -48,6 +50,7 @@ from .hypereditpanel import HyperEditPanel
 from .hyperscenepanel import HyperScenePanel
 from .updatehyperpositions import UpdateHyperPositions
 from .hyperpreset import HyperPreset
+from .inserthypercubeoperator import InsertHyperCubeOperator
 
 import bpy
 import random
