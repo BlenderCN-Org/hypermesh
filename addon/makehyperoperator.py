@@ -46,6 +46,6 @@ class MakeHyperOperator(bpy.types.Operator):
         bm.verts.layers.float.new('hyperz')
         bm.verts.layers.float.new('hyperw')
         bm.to_mesh(me)
-        ensure_scene_is_hyper(context)
+        ensure_scene_is_hyper(context.scene)
         return {'FINISHED'}
 

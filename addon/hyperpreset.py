@@ -152,8 +152,8 @@ def set_to_builtin_preset(hyperpreset, builtin = 'noW'):
         hyperpreset.cameraoffset = tuple([5 * t for t in w])
         hyperpreset.name = "No W"
 
-def ensure_scene_is_hyper(context):
-    hps = context.scene.hyperpresets
+def ensure_scene_is_hyper(scene):
+    hps = scene.hyperpresets
     if len(hps) > 0:
         return
     hps.add()
