@@ -10,8 +10,6 @@ class HyperPresetPanel(bpy.types.Panel):
     def poll(self, context):
         if context.active_object is None:
             return False
-        #if context.mode != 'OBJECT':
-        #    return False
         ob = context.active_object
         if ob.type != 'MESH':
             return False

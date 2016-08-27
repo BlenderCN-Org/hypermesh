@@ -22,8 +22,8 @@ class MakeHyperOperator(bpy.types.Operator):
     def execute(self, context):
         me = context.active_object.data
         me.hypersettings.hyper = True
-        me["hyperdirty"] = True
-        me["justcleaned"] = False
+        me["hypermesh-dirty"] = True
+        me["hypermesh-justcleaned"] = False
         bm = bmesh.new()
         bm.from_mesh(me)
         bm.verts.layers.float.new('hyperx')

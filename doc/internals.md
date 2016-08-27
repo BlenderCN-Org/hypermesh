@@ -37,10 +37,10 @@ To ensure that this relation is maintained at all times, the following actions h
 It should be noted that this is **not** what the addon does.
 For performance reasons, it doesn't update the 4-coordinates automatically
 whenever the 3-coordinates change. Rather, it marks the 4-coordinates as needing
-an update by setting the mesh's `hyperdirty` property to `True`.
+an update by setting the mesh's `hypermesh-dirty` property to `True`.
 Then whenever the 4-coordinates are needed (for example, when the 3-coordinates need to be
 updated based on their value, or when they need to be shown in the UI),
-they are updated (and `hyperdirty` is set to `False`).
+they are updated (and `hypermesh-dirty` is set to `False`).
 
 These are the essential workings of the addon.
 
@@ -59,8 +59,8 @@ It does the following things:
    mesh has been edited
 
 When a mesh has been edited in such a way that its 4-coordinates are no longer valid,
-the mesh's `hyperdirty` property should be set to `True`.
-To achieve this, the code that updates 4-coordinates sets the mesh's `justcleaned` property,
+the mesh's `hypermesh-dirty` property should be set to `True`.
+To achieve this, the code that updates 4-coordinates sets the mesh's `hypermesh-justcleaned` property,
 indicating that an update has happened but the 4-coordinates are not dirty.
 
 

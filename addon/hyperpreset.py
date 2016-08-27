@@ -33,7 +33,7 @@ def find_dirty_meshes_with_given_hyperpreset(pr):
         if not bpy.context.scene.hyperpresets[me.hypersettings.preset] == pr:
             continue
         try:
-            if me["hyperdirty"]:
+            if me["hypermesh-dirty"]:
                 dirty = True
             else:
                 dirty = False
@@ -60,8 +60,8 @@ def set_preset_property(self, prop, value):
             continue
         if not bpy.context.scene.hyperpresets[me.hypersettings.preset] == self:
             continue
-        me["hyperdirty"] = False
-        me["justcleaned"] = True
+        me["hypermesh-dirty"] = False
+        me["hypermesh-justcleaned"] = True
         project_to_3d(me) #this will trigger handle_scene_changed
 
 class HyperPreset(bpy.types.PropertyGroup):

@@ -45,10 +45,10 @@ def handle_scene_changed(scene):
             if not me.hypersettings.hyper:
                 continue
             try:
-                if me["justcleaned"]:
-                    me["justcleaned"] = False
+                if me["hypermesh-justcleaned"]:
+                    me["hypermesh-justcleaned"] = False
                 else:
-                    me["hyperdirty"] = True
+                    me["hypermesh-dirty"] = True
             except KeyError:
                 continue
 
