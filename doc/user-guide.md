@@ -140,7 +140,7 @@ Now that you have created a hypermesh, new panels appear in the UI:
    4-dimensional mesh stays the same).
 
  - In the 3D View when editing a hypermesh (`<tab>` for edit mode), a panel called
-   _hypercoordinates_ shows the average of the positions of all selected vertices
+   _Hypercoordinates_ shows the average of the positions of all selected vertices
    in 4-space.
 
 <p align="center">
