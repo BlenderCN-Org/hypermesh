@@ -99,6 +99,11 @@ indicating whether the mesh is a hypermesh, and which projection is in use.
 Also contains code to update a mesh when a different projection is picked.
 
 
+### inserthypercubeoperator.py
+
+Operator that inserts a hypercube into the scene.
+
+
 ### makehyperoperator.py
 
 Operator that turns an existing mesh into a hypermesh.

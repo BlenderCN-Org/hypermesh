@@ -112,8 +112,13 @@ the underlying point in 4-space moves **parallel** to the projection 3-space_.
 
 By default, the addon does not affect any of Blender's mesh operations.
 Only the meshes that are explicitly marked as _hypermeshes_ will be treated by the addon.
-To turn an existing mesh into a hypermesh, select it and call the `Make hyper` operator
-(`<spacebar> -> Make hyper` in the 3D view).
+
+There are two ways of creating a hypermesh:
+
+ - To turn an existing mesh into a hypermesh, select it and call the `Make hyper` operator
+   (`<spacebar> -> Make hyper` in the 3D view).
+ - You can also insert a hypermesh using the `Insert hypercube` operator
+   (`<spacebar> -> Insert hypercube` in the 3D view).
 
 
 ### UI panels
