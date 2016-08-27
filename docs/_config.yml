@@ -1,0 +1,7 @@
+name: Hypermesh
+description: The Hypermesh addon allows you to manipulate 4-dimensional meshes in Blender
+author: Daan Michiels
+author_email: daan@daanmichiels.com
+baseurl: /hypermesh
+
+
