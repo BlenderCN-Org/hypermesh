@@ -5,7 +5,7 @@ class HyperEditPanel(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_context = "object"
-    bl_label = "Hypermesh"
+    bl_label = "Hypercoordinates"
 
     @classmethod
     def poll(self, context):

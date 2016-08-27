@@ -112,6 +112,40 @@ the underlying point in 4-space moves **parallel** to the projection 3-space_.
 
 By default, the addon does not affect any of Blender's mesh operations.
 Only the meshes that are explicitly marked as _hypermeshes_ will be treated by the addon.
+To turn an existing mesh into a hypermesh, select it and call the `Make hyper` operator
+(`<spacebar> -> Make hyper` in the 3D view).
 
-To turn an existing mesh into a hypermesh, use the `Make hyper` operator.
+
+### UI panels
+
+Now that you have created a hypermesh, new panels appear in the UI:
+
+ - <img style="float: right;" src="hypermesh_projections.png" alt="The Hypermesh projections panel, showing the default No Y projection." />
+   In the Scene context of the Properties window, a panel called _Hypermesh projections_
+   lists the projections from 4-space to 3-space that are available in the scene.
+
+   Four useful projections are added by default. These are called _No W_, _No X_, _No Y_ and _No Z_.
+   The projection _No W_ just projects the point (w,x,y,z) to (x,y,z), effectively allowing you
+   to directly edit 3 of the 4 coordinates of each vertex. The other default projections
+   are analogous.
+
+   Projections can be edited in this panel. For the meaning of the different options, refer
+   to the math of the projections earlier in this document.
+
+   You can rename a projection by double-clicking on its name. It is currently impossible
+   to add or remove projections (so you'll always have 4 in the scene).
+   <div style="clear: both;" />
+
+ - <img style="float: right;" src="select_projection.png" alt="The Select projection panel." />
+   In the properties panel in the 3D View, another panel called _Select projection_
+   allows you to select which projection to use for the selected object.
+   When you pick a different projection, the 3-dimensional mesh changes shape (but the underlying
+   4-dimensional mesh stays the same).
+   <div style="clear: both;" />
+
+ - <img style="float: right;" src="hypercoordinates.png" alt="The Hypercoordinates panel." />
+   In the 3D View when editing a hypermesh (`<tab>` for edit mode), a panel called
+   _hypercoordinates_ shows the average of the positions of all selected vertices
+   in 4-space.
+   <div style="clear: both;" />
 
