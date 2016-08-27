@@ -23,7 +23,8 @@ class InsertHyperCubeOperator(bpy.types.Operator):
     bl_label = "Insert hypercube"
     bl_options = {'REGISTER', 'UNDO'}
 
-    add_faces = bpy.props.BoolProperty(name="Add faces")
+    radius = bpy.props.FloatProperty(name="Radius", default=1.0, subtype='DISTANCE')
+    add_faces = bpy.props.BoolProperty(name="Add faces", description="Whether or not to add 2-faces to the mesh", default=False)
 
     @classmethod
     def poll(cls, context):
@@ -47,10 +48,10 @@ class InsertHyperCubeOperator(bpy.types.Operator):
 
         for i in range(16):
             v = bm.verts.new((0,0,0))
-            v[layx] = ((i & 0x01) << 1) - 1;
-            v[layy] = ((i & 0x02) << 0) - 1;
-            v[layz] = ((i & 0x04) >> 1) - 1;
-            v[layw] = ((i & 0x08) >> 2) - 1;
+            v[layx] = self.radius * (((i & 0x01) << 1) - 1);
+            v[layy] = self.radius * (((i & 0x02) << 0) - 1);
+            v[layz] = self.radius * (((i & 0x04) >> 1) - 1);
+            v[layw] = self.radius * (((i & 0x08) >> 2) - 1);
 
         bm.verts.ensure_lookup_table()
 
@@ -62,7 +63,6 @@ class InsertHyperCubeOperator(bpy.types.Operator):
                     bm.edges.new((bm.verts[i], bm.verts[k]))
 
         if self.add_faces:
-            print("adding faces")
             for i in range(16):
                 for j in range(4):
                     for k in range(j+1, 4):
