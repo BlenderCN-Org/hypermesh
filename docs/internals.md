@@ -125,8 +125,14 @@ This file contains the mathematical transformations relating 3-space to 4-space.
 ### updatehyperpositions.py
 
 Operator that updates the 4-dimensional positions of a mesh's vertices on demand.
-Call this operator if you want to see the correct hypercoordinates of your selection
-in edit mode.
+Useful if you want to programmatically access hypercoordinates that haven't been
+recalculated yet.
+
+If you are not accessing the hypercoordinates programmatically, it should never be necessary
+to call the `Update hypercoordinates` operator.
+Any behavior that is observable from the UI should be indistinguishable from the case where hypercoordinates
+_are_ immediately recalculated.
+Behavior that does not satisfy this requirement is considered incorrect. Please file a bug report.
 
 
 ## Where's the data?
