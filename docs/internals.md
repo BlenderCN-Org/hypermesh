@@ -181,14 +181,14 @@ Indeed, if `v` is a `mathutils.Vector`, then `v.w == v[3]`.
 To circumvent this problem,
 **the coordinates of a mathutils.Vector shall never be indexed using letters**
 in Hypermesh code.
+Incorrect is:
+
+    v = Vector([1, 2, 3, 4])
+    the_w = v.w    # this is now 4
+
 Correct is:
 
     v = Vector([1, 2, 3, 4])
     the_w = v[0]   # this is now 1
-
-Incorrect is
-
-    v = Vector([1, 2, 3, 4])
-    the_w = v.w    # this is now 4
 
 
