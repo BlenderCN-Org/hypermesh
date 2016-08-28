@@ -128,8 +128,8 @@ There are two ways of creating a hypermesh:
 
  - To turn an existing mesh into a hypermesh, select it and call the `Make hyper` operator
    (`<spacebar> -> Make hyper` in the 3D view).
- - You can also insert a hypermesh using the `Add hypercube` operator
-   (`<shift+a> -> Hypermesh -> Hypercube` in the 3D view).
+ - You can also insert a hypermesh from the Add menu
+   (`<shift+a> -> Hypermesh -> ...` in the 3D view).
 
 
 ### UI panels
@@ -159,6 +159,16 @@ Now that you have created a hypermesh, new panels appear in the UI:
    _Hypercoordinates_ shows the average of the positions of all selected vertices
    in 4-space.
 
+   **Because performance of a Python addon is inherently limited, having this panel open while
+   editing a mesh with many vertices selected will cause lag.
+   Simply collapsing the panel alleviates the issue.**
+   If many vertices are dragged, their hypercoordinates all have to be recalculated and average
+   for this panel to show the correct output. A Python addon cannot process high numbers of
+   vertices dozens of times per second.
+   If few vertices are selected, performance is good (even when the mesh itself has many vertices),
+   and feedback about the exact hypercoordinates may be useful.
+   
+
 <p align="center">
     <img align="center" src="images/hypermesh_projections.png" alt="The Hypermesh projections panel, showing the default No Y projection." />
 </p>
@@ -172,6 +182,38 @@ Now that you have created a hypermesh, new panels appear in the UI:
 </p>
 
 
+## Primitives
+
+The Hypermesh addon provides several 4-dimensional primitives. These can be inserted using `<shift+a> -> Hypermesh`
+in the 3D view.
+
+### Hypercube
+
+A hypercube is the 4-dimensional analogue of a cube.
+It has 16 vertices, 32 edges and 24 faces.
+With the default radius, its vertices are located at $$(\pm 1, \pm 1, \pm 1, \pm 1)$$.
+
+
+### Flat torus
+
+The flat torus is the same as a regular torus, except that it sits inside
+4-dimensional space in a very nice way.
+It is called _flat_ because this surface inside 4-space is not curved
+(meaning that its Gaussian curvature vanishes).
+
+Concretely, it is the product of two circles embedded in the plane.
+For example, if one decomposes 4-space as the product of the WX-plane
+and the YZ-plane, one can parameterize the resulting flat torus by
+
+$$ (w,x,y,z) = (\cos(\theta), \sin(\theta), \cos(\phi), \sin(\phi)) \quad\theta,\phi\in[0,2\pi] .$$
+
+The addon also allows you to set the radii of the two circles,
+and the number of segments that should be used to approximate each circle.
+
+
+
+## Notes
+
 ### Updating the hypercoordinates
 
 When the 3-dimensional projection of a hypermesh is manipulated,
@@ -183,5 +225,5 @@ settings.
 
 If for some reason you want to force an update of the hypercoordinates early,
 use the `Update hypercoordinates` operator (`<spacebar> -> Update hypercoordinates`).
-This may be useful when scripting things related to hypermesh.
+This may be useful when scripting things related to Hypermesh.
 

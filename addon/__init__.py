@@ -33,6 +33,7 @@ if "bpy" in locals(): #we're reloading
     importlib.reload(updatehyperpositions)
     importlib.reload(hyperpreset)
     importlib.reload(inserthypercubeoperator)
+    importlib.reload(addflattorusoperator)
 else:
     from . import hypersettings
     from . import makehyperoperator
@@ -42,6 +43,7 @@ else:
     from . import updatehyperpositions
     from . import hyperpreset
     from . import inserthypercubeoperator
+    from . import addflattorusoperator
 
 from .hypersettings import HyperSettings
 from .makehyperoperator import MakeHyperOperator
@@ -51,6 +53,7 @@ from .hyperscenepanel import HyperScenePanel
 from .updatehyperpositions import UpdateHyperPositions
 from .hyperpreset import HyperPreset
 from .inserthypercubeoperator import InsertHyperCubeOperator
+from .addflattorusoperator import AddFlatTorusOperator
 
 import bpy
 import random
@@ -76,6 +79,7 @@ class AddHyperMeshMenu(bpy.types.Menu):
 
     def draw(self, context):
         self.layout.operator("hyper.inserthypercube", text="Hypercube", icon="MESH_CUBE")
+        self.layout.operator("hyper.addflattorus", text="Flat torus", icon="MESH_TORUS")
 
 def add_hypermesh_func(self, context):
     self.layout.separator()

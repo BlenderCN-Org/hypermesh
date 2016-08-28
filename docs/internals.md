@@ -65,11 +65,17 @@ It does the following things:
  - (un)registers the addon's classes (such as Operators, Properties) with Blender
  - defines and registers a callback handler for `scene_update_post`; this is used to detect when a
    mesh has been edited
+ - defines and registers the Hypermesh portion of the Add menu in the 3D view (`<shift+a>`)
 
 When a mesh has been edited in such a way that its 4-coordinates are no longer valid,
 the mesh's `hypermesh-dirty` property should be set to `True`.
 To achieve this, the code that updates 4-coordinates sets the mesh's `hypermesh-justcleaned` property,
 indicating that an update has happened but the 4-coordinates are not dirty.
+
+
+### addflattorusoperator.py
+
+Operator that inserts a flat torus into the scene.
 
 
 ### hypereditpanel.py
