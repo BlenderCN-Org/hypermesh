@@ -185,9 +185,3 @@ If for some reason you want to force an update of the hypercoordinates early,
 use the `Update hypercoordinates` operator (`<spacebar> -> Update hypercoordinates`).
 This may be useful when scripting things related to hypermesh.
 
-If you are not accessing the hypercoordinates programmatically, it should never be necessary
-to call the `Update hypercoordinates` operator.
-Any behavior that is observable from the UI should be indistinguishable from the case where hypercoordinates
-_are_ immediately recalculated.
-Any behavior that does not satisfy this requirement is considered incorrect. Please file a bug report.
-
