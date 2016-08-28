@@ -15,6 +15,8 @@
 
 import bpy
 import bmesh
+from .projections import map4to4
+from mathutils import Vector
 
 class HyperEditPanel(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
@@ -44,16 +46,36 @@ class HyperEditPanel(bpy.types.Panel):
             row.label("Nothing selected")
             return
 
+        h = context.scene.hyperpresets[me.hypersettings.preset]
+
         layx = bm.verts.layers.float['hyperx']
         layy = bm.verts.layers.float['hypery']
         layz = bm.verts.layers.float['hyperz']
         layw = bm.verts.layers.float['hyperw']
 
+        meanx = 0
+        meany = 0
+        meanz = 0
+        meanw = 0
+        for v in verts:
+            old = Vector([v[layx], v[layy], v[layz], v[layw]])
+            newco = map4to4(h, v.co, old)
+            v[layx] = newco.x
+            v[layy] = newco.y
+            v[layz] = newco.z
+            v[layw] = newco.w
+            meanx += newco.x
+            meany += newco.y
+            meanz += newco.z
+            meanw += newco.w
+        bmesh.update_edit_mesh(me)
+
         n = len(verts)
-        meanx = sum([v[layx] for v in verts]) / n
-        meany = sum([v[layy] for v in verts]) / n
-        meanz = sum([v[layz] for v in verts]) / n
-        meanw = sum([v[layw] for v in verts]) / n
+        meanx /= n
+        meany /= n
+        meanz /= n
+        meanw /= n
+        
         if n == 1:
             row.label("Vertex:")
         else:
