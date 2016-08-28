@@ -28,7 +28,7 @@ When the hypermesh plugin is loaded, the following extra information is kept tra
 When a mesh is turned into a hypermesh (by the `MakeHyperOperator`),
 or when a hypermesh is inserted directly,
 the Bmesh data underlying it contains 4 extra layers of floating point vertex information.
-These layers are called `hyperx`, `hypery`, `hyperz`, `hyperw`, and they contain the
+These layers are called `hyperw`, `hyperx`, `hypery`, `hyperz`, and they contain the
 coordinates of the vertex in 4-space.
 
 Of course, the ordinary 3-coordinates are related to these 4 hypercoordinates by means
@@ -152,8 +152,8 @@ The following provides an overview of all these pieces of data.
 The following pieces of information are stored for meshes:
 
  - for every mesh, a `HyperSettings` object (called `me.hypersettings` where `me` is the mesh)
- - for every hypermesh, four extra layers of floating point information per vertex (`hyperx`,
-   `hypery`, `hyperz`, `hyperw`); these can be accessed from the mesh's Bmesh data
+ - for every hypermesh, four extra layers of floating point information per vertex (`hyperw`, `hyperx`,
+   `hypery`, `hyperz`); these can be accessed from the mesh's Bmesh data
  - for every hypermesh, booleans `me["hypermesh-dirty"]` and `me["hypermesh-justcleaned"]`
    for keeping track of whether hypercoordinates need to be updated (where `me` is the mesh)
 
@@ -172,5 +172,23 @@ The following pieces of information are stored for scenes:
  - for each scene, an `IntProperty` called `sc.selectedpreset`; it indicates which preset is currently
    selected in the scene's properties; this property is not written to the `.blend`
 
+
+## WXYZ vs XYZW
+
+The convention in all of Hypermesh's code is to use the order WXYZ for the coordinates.
+This works well, except for one issue: Blender's class `mathutils.Vector` disagrees.
+Indeed, if `v` is a `mathutils.Vector`, then `v.w == v[3]`.
+To circumvent this problem,
+**the coordinates of a mathutils.Vector shall never be index using letters**
+in Hypermesh code.
+Correct is:
+
+    v = Vector([1, 2, 3, 4])
+    the_w = v[0]   # this is now 1
+
+Incorrect is
+
+    v = Vector([1, 2, 3, 4])
+    the_w = v.w    # this is now 4
 
 

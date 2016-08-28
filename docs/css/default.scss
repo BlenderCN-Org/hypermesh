@@ -35,12 +35,21 @@ h1, h2, h3, h4, h5, p, li {
 	padding-right: 0.2em;
 }
 
+pre {
+	background-color: #f6f6f6;
+	border-radius: 3px;
+	padding: 9px;
+}
+
 code {
-	background-color: #f9f9f9;
+	background-color: #f6f6f6;
 	border-radius: 3px;
 	padding: 3px;
-	position: relative;
-	top: -1px;
+}
+
+pre code {
+    border-radius: 0px;
+    padding: 0px;
 }
 
 div.figure {
