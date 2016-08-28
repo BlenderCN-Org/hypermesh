@@ -19,6 +19,7 @@ from .projections import map3to4
 from .hyperpreset import ensure_scene_is_hyper
 from mathutils import Vector
 from math import pi, sin, cos
+from .hypermeshpreferences import debug_message
 
 class AddFlatTorusOperator(bpy.types.Operator):
     bl_idname = "hyper.addflattorus"
@@ -47,6 +48,8 @@ class AddFlatTorusOperator(bpy.types.Operator):
         return context.mode == "OBJECT"
 
     def execute(self, context):
+        debug_message("Adding flat torus")
+        
         sc = bpy.context.scene
         ensure_scene_is_hyper(sc)
 

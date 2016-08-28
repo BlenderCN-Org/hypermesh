@@ -17,6 +17,7 @@ import bpy
 import bmesh
 from .projections import map3to4
 from .hyperpreset import ensure_scene_is_hyper
+from .hypermeshpreferences import debug_message
 
 class MakeHyperOperator(bpy.types.Operator):
     bl_idname = "hyper.makehyper"
@@ -34,6 +35,8 @@ class MakeHyperOperator(bpy.types.Operator):
         return context.mode == "OBJECT"
 
     def execute(self, context):
+        debug_message("Making hyper")
+
         me = context.active_object.data
         me.hypersettings.hyper = True
         me["hypermesh-dirty"] = True

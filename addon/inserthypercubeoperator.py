@@ -17,6 +17,7 @@ import bpy
 import bmesh
 from .projections import map3to4
 from .hyperpreset import ensure_scene_is_hyper
+from .hypermeshpreferences import debug_message
 
 class InsertHyperCubeOperator(bpy.types.Operator):
     bl_idname = "hyper.inserthypercube"
@@ -30,6 +31,8 @@ class InsertHyperCubeOperator(bpy.types.Operator):
         return context.mode == "OBJECT"
 
     def execute(self, context):
+        debug_message("Adding hypercube")
+
         sc = bpy.context.scene
         ensure_scene_is_hyper(sc)
 

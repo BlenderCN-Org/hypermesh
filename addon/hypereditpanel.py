@@ -17,8 +17,7 @@ import bpy
 import bmesh
 from .projections import map4to4
 from mathutils import Vector
-from .hypermeshpreferences import debug_enabled
-import random
+from .hypermeshpreferences import debug_message
 
 class HyperEditPanel(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
@@ -39,8 +38,7 @@ class HyperEditPanel(bpy.types.Panel):
         return me.hypersettings.hyper
 
     def draw(self, context):
-        if debug_enabled(bpy.context):
-            print("Hypermesh: drawing panel Hypercoordinates " + str(random.random()))
+        debug_message("Drawing panel Hypercoordinates")
 
         me = context.active_object.data
         bm = bmesh.from_edit_mesh(me)
