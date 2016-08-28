@@ -18,8 +18,12 @@ import bmesh
 from .updatehyperpositions import clean_mesh
 from .projections import map4to3
 from mathutils import Vector
+from .hypermeshpreferences import debug_enabled
 
 def project_to_3d(me):
+    if debug_enabled(bpy.context):
+        print("Hypermesh: projecting " + me.name + " to 3D")
+
     h = bpy.context.scene.hyperpresets[me.hypersettings.preset]
     if me.is_editmode:
         bm = bmesh.from_edit_mesh(me)

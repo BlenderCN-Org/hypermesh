@@ -34,6 +34,7 @@ if "bpy" in locals(): #we're reloading
     importlib.reload(hyperpreset)
     importlib.reload(inserthypercubeoperator)
     importlib.reload(addflattorusoperator)
+    importlib.reload(hypermeshpreferences)
 else:
     from . import hypersettings
     from . import makehyperoperator
@@ -44,6 +45,7 @@ else:
     from . import hyperpreset
     from . import inserthypercubeoperator
     from . import addflattorusoperator
+    from . import hypermeshpreferences
 
 from .hypersettings import HyperSettings
 from .makehyperoperator import MakeHyperOperator
@@ -54,6 +56,7 @@ from .updatehyperpositions import UpdateHyperPositions
 from .hyperpreset import HyperPreset
 from .inserthypercubeoperator import InsertHyperCubeOperator
 from .addflattorusoperator import AddFlatTorusOperator
+from .hypermeshpreferences import HypermeshPreferences
 
 import bpy
 import random
