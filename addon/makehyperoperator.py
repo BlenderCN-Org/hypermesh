@@ -17,7 +17,6 @@ import bpy
 import bmesh
 from .projections import map3to4
 from .hyperpreset import ensure_scene_is_hyper
-from mathutils import Vector
 
 class MakeHyperOperator(bpy.types.Operator):
     bl_idname = "hyper.makehyper"
@@ -32,7 +31,7 @@ class MakeHyperOperator(bpy.types.Operator):
         me = context.active_object.data
         if me.hypersettings.hyper:
             return False
-        return True
+        return context.mode == "OBJECT"
 
     def execute(self, context):
         me = context.active_object.data

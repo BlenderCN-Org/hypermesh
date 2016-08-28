@@ -28,7 +28,7 @@ class InsertHyperCubeOperator(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        return True
+        return context.mode == "OBJECT"
 
     def execute(self, context):
         sc = bpy.context.scene
@@ -48,10 +48,10 @@ class InsertHyperCubeOperator(bpy.types.Operator):
 
         for i in range(16):
             v = bm.verts.new((0,0,0))
-            v[layx] = self.radius * (((i & 0x01) << 1) - 1);
-            v[layy] = self.radius * (((i & 0x02) << 0) - 1);
-            v[layz] = self.radius * (((i & 0x04) >> 1) - 1);
-            v[layw] = self.radius * (((i & 0x08) >> 2) - 1);
+            v[layx] = self.radius * (((i & 0x01) << 1) - 1)
+            v[layy] = self.radius * (((i & 0x02) << 0) - 1)
+            v[layz] = self.radius * (((i & 0x04) >> 1) - 1)
+            v[layw] = self.radius * (((i & 0x08) >> 2) - 1)
 
         bm.verts.ensure_lookup_table()
 
