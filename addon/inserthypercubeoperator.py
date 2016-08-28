@@ -20,7 +20,7 @@ from .hyperpreset import ensure_scene_is_hyper
 
 class InsertHyperCubeOperator(bpy.types.Operator):
     bl_idname = "hyper.inserthypercube"
-    bl_label = "Insert hypercube"
+    bl_label = "Add hypercube"
     bl_options = {'REGISTER', 'UNDO'}
 
     radius = bpy.props.FloatProperty(name="Radius", default=1.0, subtype='DISTANCE')
