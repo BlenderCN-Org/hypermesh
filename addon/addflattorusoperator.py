@@ -96,6 +96,15 @@ class AddFlatTorusOperator(bpy.types.Operator):
                 bm.edges.new((bm.verts[i * self.segmentcount2 + j], bm.verts[i * self.segmentcount2 + b]))
                 bm.edges.new((bm.verts[i * self.segmentcount2 + j], bm.verts[a * self.segmentcount2 + j]))
 
+        bm.edges.ensure_lookup_table()
+
+        for i in range(self.segmentcount1):
+            for j in range(self.segmentcount2):
+                a = ((i+1) % self.segmentcount1)
+                b = ((j+1) % self.segmentcount2)
+                bm.faces.new((bm.verts[i * self.segmentcount2 + j], bm.verts[a * self.segmentcount2 + j],
+                              bm.verts[a * self.segmentcount2 + b], bm.verts[i * self.segmentcount2 + b]))
+
         bm.to_mesh(me)
 
         ob = bpy.data.objects.new("Flat torus", me)
