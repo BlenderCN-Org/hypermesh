@@ -158,7 +158,6 @@ Now that you have created a hypermesh, new panels appear in the UI:
  - In the 3D View when editing a hypermesh (`<tab>` for edit mode), a panel called
    _Hypercoordinates_ shows the average of the positions of all selected vertices
    in 4-space.
-   Please read the subsection _Updating the hypercoordinates_ before using this panel.
 
 <p align="center">
     <img align="center" src="images/hypermesh_projections.png" alt="The Hypermesh projections panel, showing the default No Y projection." />
@@ -177,12 +176,18 @@ Now that you have created a hypermesh, new panels appear in the UI:
 
 When the 3-dimensional projection of a hypermesh is manipulated,
 the hypercoordinates of the vertices are not automatically updated (for performance reasons).
-If you want to force an update of the hypercoordinates, use the `Update hypercoordinates` operator
-(`<spacebar> -> Update hypercoordinates`).
-Note that this is necessary in order for the panel _Hypercoordinates_ to show the correct coordinates (!).
+They are only recalculated as soon as they're needed.
+For example, when you pick a different projection for a hypermesh, any hypercoordinates that
+hadn't been recalculated yet, will be. Only then is the hypermesh re-projected using the new
+settings.
 
-If you are not interested in precise hypercoordinates, it is not necessary to call the
-`Update hypercoordinates` operator. For example, when you change a hypermesh's projection,
-the hypercoordinates are recalculated automatically before the hypermesh is projected using
-the new projection.
+If for some reason you want to force an update of the hypercoordinates early,
+use the `Update hypercoordinates` operator (`<spacebar> -> Update hypercoordinates`).
+This may be useful when scripting things related to hypermesh.
+
+If you are not accessing the hypercoordinates programmatically, it should never be necessary
+to call the `Update hypercoordinates` operator.
+Any behavior that is observable from the UI should be indistinguishable from the case where hypercoordinates
+_are_ immediately recalculated.
+Any behavior that does not satisfy this requirement is considered incorrect. Please file a bug report.
 
