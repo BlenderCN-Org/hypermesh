@@ -79,6 +79,7 @@ class AddHyperMeshMenu(bpy.types.Menu):
 
     def draw(self, context):
         self.layout.operator("hyper.inserthypercube", text="Hypercube", icon="MESH_CUBE")
+        self.layout.operator("hyper.addflattorus", text="Flat torus", icon="MESH_TORUS")
 
 def add_hypermesh_func(self, context):
     self.layout.separator()
