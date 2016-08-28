@@ -83,6 +83,13 @@ Operator that inserts a flat torus into the scene.
 The UI panel that is visible when editing a mesh (edit mode in the 3D view).
 
 
+### hypermeshpreferences.py
+
+Defines the user preferences that available for this addon.
+Only one is available: whether or not to enable debugging.
+If debugging is enabled, the addon will print debug messages to the system console.
+
+
 ### hyperpreset.py
 
 A `HyperPreset` is a `PropertyGroup` that contains the information defining a projection from 4-space

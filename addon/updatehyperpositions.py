@@ -17,8 +17,11 @@ import bpy
 import bmesh
 from .projections import map4to4
 from mathutils import Vector
+from .hypermeshpreferences import debug_message
 
 def clean_mesh(me):
+    debug_message("Cleaning mesh " + me.name)
+
     h = bpy.context.scene.hyperpresets[me.hypersettings.preset]
     if me.is_editmode:
         bm = bmesh.from_edit_mesh(me)
