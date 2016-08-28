@@ -26,12 +26,12 @@ def project_to_3d(me):
     else:
         bm = bmesh.new()
         bm.from_mesh(me)
+    layw = bm.verts.layers.float['hyperw']
     layx = bm.verts.layers.float['hyperx']
     layy = bm.verts.layers.float['hypery']
     layz = bm.verts.layers.float['hyperz']
-    layw = bm.verts.layers.float['hyperw']
     for v in bm.verts:
-        p = Vector([v[layx], v[layy], v[layz], v[layw]])
+        p = Vector([v[layw], v[layx], v[layy], v[layz]])
         newco = map4to3(h, p)
         v.co = newco
     if me.is_editmode:

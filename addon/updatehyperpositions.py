@@ -25,17 +25,17 @@ def clean_mesh(me):
     else:
         bm = bmesh.new()
         bm.from_mesh(me)
+    layw = bm.verts.layers.float['hyperw']
     layx = bm.verts.layers.float['hyperx']
     layy = bm.verts.layers.float['hypery']
     layz = bm.verts.layers.float['hyperz']
-    layw = bm.verts.layers.float['hyperw']
     for v in bm.verts:
-        old = Vector([v[layx], v[layy], v[layz], v[layw]])
+        old = Vector([v[layw], v[layx], v[layy], v[layz]])
         newco = map4to4(h, v.co, old)
-        v[layx] = newco.x
-        v[layy] = newco.y
-        v[layz] = newco.z
-        v[layw] = newco.w
+        v[layw] = newco[0]
+        v[layx] = newco[1]
+        v[layy] = newco[2]
+        v[layz] = newco[3]
     if me.is_editmode:
         bmesh.update_edit_mesh(me)
     else:

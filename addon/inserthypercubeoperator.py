@@ -40,17 +40,17 @@ class InsertHyperCubeOperator(bpy.types.Operator):
 
         bm = bmesh.new()
         bm.from_mesh(me)
+        layw = bm.verts.layers.float.new('hyperw')
         layx = bm.verts.layers.float.new('hyperx')
         layy = bm.verts.layers.float.new('hypery')
         layz = bm.verts.layers.float.new('hyperz')
-        layw = bm.verts.layers.float.new('hyperw')
 
         for i in range(16):
             v = bm.verts.new((0,0,0))
-            v[layx] = self.radius * (((i & 0x01) << 1) - 1)
-            v[layy] = self.radius * (((i & 0x02) << 0) - 1)
-            v[layz] = self.radius * (((i & 0x04) >> 1) - 1)
-            v[layw] = self.radius * (((i & 0x08) >> 2) - 1)
+            v[layw] = self.radius * (((i & 0x01) << 1) - 1)
+            v[layx] = self.radius * (((i & 0x02) << 0) - 1)
+            v[layy] = self.radius * (((i & 0x04) >> 1) - 1)
+            v[layz] = self.radius * (((i & 0x08) >> 2) - 1)
 
         bm.verts.ensure_lookup_table()
 

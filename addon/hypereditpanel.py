@@ -48,37 +48,37 @@ class HyperEditPanel(bpy.types.Panel):
 
         h = context.scene.hyperpresets[me.hypersettings.preset]
 
+        layw = bm.verts.layers.float['hyperw']
         layx = bm.verts.layers.float['hyperx']
         layy = bm.verts.layers.float['hypery']
         layz = bm.verts.layers.float['hyperz']
-        layw = bm.verts.layers.float['hyperw']
 
+        meanw = 0
         meanx = 0
         meany = 0
         meanz = 0
-        meanw = 0
         for v in verts:
-            old = Vector([v[layx], v[layy], v[layz], v[layw]])
+            old = Vector([v[layw], v[layx], v[layy], v[layz]])
             newco = map4to4(h, v.co, old)
-            v[layx] = newco.x
-            v[layy] = newco.y
-            v[layz] = newco.z
-            v[layw] = newco.w
-            meanx += newco.x
-            meany += newco.y
-            meanz += newco.z
-            meanw += newco.w
+            v[layw] = newco[0]
+            v[layx] = newco[1]
+            v[layy] = newco[2]
+            v[layz] = newco[3]
+            meanw += newco[0]
+            meanx += newco[1]
+            meany += newco[2]
+            meanz += newco[3]
         bmesh.update_edit_mesh(me)
 
         n = len(verts)
+        meanw /= n
         meanx /= n
         meany /= n
         meanz /= n
-        meanw /= n
         
         if n == 1:
             row.label("Vertex:")
         else:
             row.label("Mean:")
         row = layout.row()
-        row.label("({0:.6g}, {1:.6g}, {2:.6g}, {3:.6g})".format(meanx, meany, meanz, meanw))
+        row.label("({0:.6g}, {1:.6g}, {2:.6g}, {3:.6g})".format(meanw, meanx, meany, meanz))

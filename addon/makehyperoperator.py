@@ -40,10 +40,10 @@ class MakeHyperOperator(bpy.types.Operator):
         me["hypermesh-justcleaned"] = False
         bm = bmesh.new()
         bm.from_mesh(me)
+        bm.verts.layers.float.new('hyperw')
         bm.verts.layers.float.new('hyperx')
         bm.verts.layers.float.new('hypery')
         bm.verts.layers.float.new('hyperz')
-        bm.verts.layers.float.new('hyperw')
         bm.to_mesh(me)
         ensure_scene_is_hyper(context.scene)
         return {'FINISHED'}

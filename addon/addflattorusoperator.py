@@ -57,10 +57,10 @@ class AddFlatTorusOperator(bpy.types.Operator):
 
         bm = bmesh.new()
         bm.from_mesh(me)
+        layw = bm.verts.layers.float.new('hyperw')
         layx = bm.verts.layers.float.new('hyperx')
         layy = bm.verts.layers.float.new('hypery')
         layz = bm.verts.layers.float.new('hyperz')
-        layw = bm.verts.layers.float.new('hyperw')
 
         if self.orientation == "decompose_wx_yz":
             plane1 = (Vector([1,0,0,0]), Vector([0,1,0,0]))
@@ -82,10 +82,10 @@ class AddFlatTorusOperator(bpy.types.Operator):
                 position = self.radius1 * cos(theta) * plane1[0] + self.radius1 * sin(theta) * plane1[1] +\
                            self.radius2 * cos(phi) * plane2[0] + self.radius2 * sin(phi) * plane2[1]
 
-                v[layx] = position.x
-                v[layy] = position.y
-                v[layz] = position.z
-                v[layw] = position.w
+                v[layw] = position[0]
+                v[layx] = position[1]
+                v[layy] = position[2]
+                v[layz] = position[3]
 
         bm.verts.ensure_lookup_table()
 
