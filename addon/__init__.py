@@ -70,6 +70,17 @@ def handle_scene_changed(scene):
             except KeyError:
                 continue
 
+class AddHyperMeshMenu(bpy.types.Menu):
+    bl_idname = "INFO_MT_add_hypermesh"
+    bl_label = "Hypermesh"
+
+    def draw(self, context):
+        self.layout.operator("hyper.inserthypercube", text="Hypercube", icon="MESH_CUBE")
+
+def add_hypermesh_func(self, context):
+    self.layout.separator()
+    self.layout.menu("INFO_MT_add_hypermesh", icon="OUTLINER_OB_MESH")
+
 def register():
     print("Registering hypermesh addon... ", end="")
     sys.stdout.flush()
@@ -80,8 +91,10 @@ def register():
     bpy.types.Scene.hyperpresets = bpy.props.CollectionProperty(type=HyperPreset)
     bpy.types.Scene.selectedpreset = bpy.props.IntProperty(options={'HIDDEN', 'SKIP_SAVE'})
     bpy.app.handlers.scene_update_post.append(handle_scene_changed)
+    bpy.types.INFO_MT_add.append(add_hypermesh_func)
 
 def unregister():
+    bpy.types.INFO_MT_add.remove(add_hypermesh_func)
     bpy.app.handlers.scene_update_post.remove(handle_scene_changed)
     del bpy.types.Scene.selectedpreset
     del bpy.types.Scene.hyperpresets

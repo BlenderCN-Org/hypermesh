@@ -128,8 +128,8 @@ There are two ways of creating a hypermesh:
 
  - To turn an existing mesh into a hypermesh, select it and call the `Make hyper` operator
    (`<spacebar> -> Make hyper` in the 3D view).
- - You can also insert a hypermesh using the `Insert hypercube` operator
-   (`<spacebar> -> Insert hypercube` in the 3D view).
+ - You can also insert a hypermesh using the `Add hypercube` operator
+   (`<shift+a> -> Hypermesh -> Hypercube` in the 3D view).
 
 
 ### UI panels
