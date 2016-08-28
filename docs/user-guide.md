@@ -159,6 +159,16 @@ Now that you have created a hypermesh, new panels appear in the UI:
    _Hypercoordinates_ shows the average of the positions of all selected vertices
    in 4-space.
 
+   **Because performance of a Python addon is inherently limited, having this panel open while
+   editing a mesh with many vertices selected will cause lag.
+   Simply collapsing the panel alleviates the issue.**
+   If many vertices are dragged, their hypercoordinates all have to be recalculated and average
+   for this panel to show the correct output. A Python addon cannot process high numbers of
+   vertices dozens of times per second.
+   If few vertices are selected, performance is good (even when the mesh itself has many vertices),
+   and feedback about the exact hypercoordinates may be useful.
+   
+
 <p align="center">
     <img align="center" src="images/hypermesh_projections.png" alt="The Hypermesh projections panel, showing the default No Y projection." />
 </p>
