@@ -179,7 +179,7 @@ The convention in all of Hypermesh's code is to use the order WXYZ for the coord
 This works well, except for one issue: Blender's class `mathutils.Vector` disagrees.
 Indeed, if `v` is a `mathutils.Vector`, then `v.w == v[3]`.
 To circumvent this problem,
-**the coordinates of a mathutils.Vector shall never be index using letters**
+**the coordinates of a mathutils.Vector shall never be indexed using letters**
 in Hypermesh code.
 Correct is:
 
