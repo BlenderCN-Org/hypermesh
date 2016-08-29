@@ -22,6 +22,27 @@ from .hypermeshpreferences import debug_message
 class MakeHyperOperator(bpy.types.Operator):
     bl_idname = "hyper.makehyper"
     bl_label = "Make hyper"
+    bl_options = {'REGISTER', 'UNDO'}
+
+    def get_selected_preset(self):
+        try:
+            return self["selected_preset"]
+        except KeyError:
+            self["selected_preset"] = bpy.context.scene.selectedpreset
+            return self["selected_preset"]
+
+    def set_selected_preset(self, value):
+        if value >= len(bpy.context.scene.hyperpresets):
+            value = len(bpy.context.scene.hyperpresets) - 1
+        if value < 0:
+            value = 0
+        # note: if there were no presets, value is now 0
+        self["selected_preset"] = value
+
+    selected_preset = bpy.props.IntProperty(name="Projection",
+        description="Which projection to use when interpreting the 3-mesh as a 4-mesh",
+        get=get_selected_preset,
+        set=set_selected_preset)
 
     @classmethod
     def poll(cls, context):
@@ -30,8 +51,6 @@ class MakeHyperOperator(bpy.types.Operator):
         if context.active_object.type != 'MESH':
             return False
         me = context.active_object.data
-        if me.hypersettings.hyper:
-            return False
         return context.mode == "OBJECT"
 
     def execute(self, context):
@@ -39,9 +58,14 @@ class MakeHyperOperator(bpy.types.Operator):
 
         ensure_scene_is_hyper(context.scene)
         me = context.active_object.data
+
+        if me.hypersettings.hyper:
+            self.report({'ERROR_INVALID_INPUT'}, "Mesh is already hyper")
+            return {'FINISHED'}
+
         me.hypersettings.hyper = True
         me["hypermesh-dirty"] = True
-        me["hypermesh-justcleaned"] = False
+        me["hypermesh-justcleaned"] = True
         bm = bmesh.new()
         bm.from_mesh(me)
         bm.verts.layers.float.new('hyperw')
@@ -49,5 +73,7 @@ class MakeHyperOperator(bpy.types.Operator):
         bm.verts.layers.float.new('hypery')
         bm.verts.layers.float.new('hyperz')
         bm.to_mesh(me)
+        me["hypermesh-justcleaned"] = True
+        me.hypersettings.set_preset_without_reprojecting(self.selected_preset)
         return {'FINISHED'}
 

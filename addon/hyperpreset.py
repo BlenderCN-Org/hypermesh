@@ -69,6 +69,7 @@ def get_preset_property(self, prop, default):
         return self[prop]
 
 def set_preset_property(self, prop, value):
+    debug_message("Set preset property")
     dirties = find_dirty_meshes_with_given_hyperpreset(self)
     for me in dirties:
         clean_mesh(me)
