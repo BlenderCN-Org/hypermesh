@@ -33,7 +33,6 @@ class HyperPresetPanel(bpy.types.Panel):
     def draw(self, context):
         me = context.active_object.data
         layout = self.layout
-        row = layout.row()
         if not me.hypersettings.hyper:
             layout.operator("hyper.makehyper", text="Make hyper")
             return

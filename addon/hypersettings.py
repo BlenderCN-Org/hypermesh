@@ -19,6 +19,7 @@ from mathutils import Vector
 from .projections import map4to3
 from .updatehyperpositions import clean_mesh
 from .hyperpreset import project_to_3d
+from .hypermeshpreferences import debug_message
 
 def find_dirty_meshes_with_given_hypersettings(h):
     meshes = []
@@ -46,6 +47,7 @@ def get_preset(self):
         return self["preset"]
 
 def set_preset(self, value):
+    debug_message("Set preset of a HyperSettings")
     dirties = find_dirty_meshes_with_given_hypersettings(self)
     for me in dirties:
         clean_mesh(me)
@@ -55,6 +57,7 @@ def set_preset(self, value):
             continue
         if not me.hypersettings == self:
             continue
+        # I suspect this search will match at most once
         me["hypermesh-dirty"] = False
         me["hypermesh-justcleaned"] = True
         project_to_3d(me) #this will trigger handle_scene_changed
@@ -70,3 +73,6 @@ class HyperSettings(bpy.types.PropertyGroup):
             get=get_preset,
             set=set_preset)
 
+    def set_preset_without_reprojecting(self, value):
+        debug_message("Set preset without reprojecting")
+        self["preset"] = value

@@ -68,9 +68,12 @@ It does the following things:
  - defines and registers the Hypermesh portion of the Add menu in the 3D view (`<shift+a>`)
 
 When a mesh has been edited in such a way that its 4-coordinates are no longer valid,
-the mesh's `hypermesh-dirty` property should be set to `True`.
-To achieve this, the code that updates 4-coordinates sets the mesh's `hypermesh-justcleaned` property,
-indicating that an update has happened but the 4-coordinates are not dirty.
+the mesh's `hypermesh-dirty` property should be set to `True`. This is done is this file.
+
+When a mesh's hypercoordinates are updated, this will trigger the `scene_update_post` event,
+which in turn will mark the coordinates as dirty. To prevent this,
+a property `hypermesh-justcleaned` is used to indicate that the handler for
+`scene_update_post` should **not** mark this mesh as dirty the next time it is invoked.
 
 
 ### addflattorusoperator.py

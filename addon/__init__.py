@@ -61,6 +61,7 @@ from .hypermeshpreferences import HypermeshPreferences
 import bpy
 import random
 import sys
+from .hypermeshpreferences import debug_message
 
 @bpy.app.handlers.persistent
 def handle_scene_changed(scene):
@@ -68,6 +69,7 @@ def handle_scene_changed(scene):
         if me.is_updated:
             if not me.hypersettings.hyper:
                 continue
+            debug_message("Mesh " + me.name + " updated")
             try:
                 if me["hypermesh-justcleaned"]:
                     me["hypermesh-justcleaned"] = False
