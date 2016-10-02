@@ -53,10 +53,17 @@ class MakeHyperOperator(bpy.types.Operator):
         me = context.active_object.data
         return context.mode == "OBJECT"
 
+    def draw(self, context):
+        layout = self.layout
+        row = layout.row()
+        layout.template_list("preset_list", "notsurewhattoputhere", context.scene, "hyperpresets", self, "selected_preset")
+
+
     def execute(self, context):
         debug_message("Making hyper")
 
         ensure_scene_is_hyper(context.scene)
+        debug_message("Ensured scene is hyper")
         me = context.active_object.data
 
         if me.hypersettings.hyper:
@@ -65,7 +72,6 @@ class MakeHyperOperator(bpy.types.Operator):
 
         me.hypersettings.hyper = True
         me["hypermesh-dirty"] = True
-        me["hypermesh-justcleaned"] = True
         bm = bmesh.new()
         bm.from_mesh(me)
         bm.verts.layers.float.new('hyperw')
@@ -73,7 +79,7 @@ class MakeHyperOperator(bpy.types.Operator):
         bm.verts.layers.float.new('hypery')
         bm.verts.layers.float.new('hyperz')
         bm.to_mesh(me)
-        me["hypermesh-justcleaned"] = True
+        me["hypermesh-justcleaned"] = False
         me.hypersettings.set_preset_without_reprojecting(self.selected_preset)
         return {'FINISHED'}
 

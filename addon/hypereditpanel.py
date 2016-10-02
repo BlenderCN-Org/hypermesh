@@ -38,7 +38,7 @@ class HyperEditPanel(bpy.types.Panel):
         return me.hypersettings.hyper
 
     def draw(self, context):
-        debug_message("Drawing panel Hypercoordinates")
+        #debug_message("Drawing panel Hypercoordinates")
 
         me = context.active_object.data
         bm = bmesh.from_edit_mesh(me)

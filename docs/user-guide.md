@@ -131,6 +131,22 @@ There are two ways of creating a hypermesh:
  - You can also insert a hypermesh from the Add menu
    (`<shift+a> -> Hypermesh -> ...` in the 3D view).
 
+#### The `Make hyper` operator
+
+This operator turns the active mesh into a hypermesh.
+One selects a projection to use,
+and then every vertex of the mesh will receive 4-coordinates in such a way that
+
+ - the projection of the hypermesh to 3D looks exactly like the mesh already did
+ - the 4-coordinates lie on the hyperplane in 4-space that passes through the `View center`
+   and contains the direction `X vector`, `Y vector` and `Z vector` (in the picture above,
+   this is the plane containing the red dots)
+
+#### Inserting a hypermesh from the Add menu
+
+The addon ships with several 4-dimensional primitives that can be inserted.
+More information about these primitives is below.
+
 
 ### UI panels
 
@@ -162,7 +178,7 @@ Now that you have created a hypermesh, new panels appear in the UI:
    **Because performance of a Python addon is inherently limited, having this panel open while
    editing a mesh with many vertices selected will cause lag.
    Simply collapsing the panel alleviates the issue.**
-   If many vertices are dragged, their hypercoordinates all have to be recalculated and average
+   If many vertices are dragged, their hypercoordinates all have to be recalculated and averaged
    for this panel to show the correct output. A Python addon cannot process high numbers of
    vertices dozens of times per second.
    If few vertices are selected, performance is good (even when the mesh itself has many vertices),
