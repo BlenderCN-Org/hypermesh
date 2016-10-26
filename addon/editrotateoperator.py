@@ -28,11 +28,14 @@ class EditRotateOperator(bpy.types.Operator):
 
     def modal(self, context, event):
         if event.type == 'MOUSEMOVE':
+            context.area.header_text_set("Rotating...")
             debug_message("Mousemove")
             self.execute(context)
         elif event.type == 'LEFTMOUSE':
+            context.area.header_text_set()
             return {'FINISHED'}
         elif event.type in ('RIGHTMOUSE', 'ESC'):
+            context.area.header_text_set()
             return {'CANCELLED'}
 
         return {'RUNNING_MODAL'}
