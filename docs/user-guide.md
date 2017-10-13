@@ -53,7 +53,7 @@ using software than handles 2-dimensional meshes).
 
 ### Projecting from 4-space to 3-space
 
-The meshes that are handles by the addon are meshes living in 4-dimensional Euclidean space.
+The meshes that are handled by the addon are meshes living in 4-dimensional Euclidean space.
 These meshes have
 
  - vertices: each vertex has a position given by 4 floating point numbers
