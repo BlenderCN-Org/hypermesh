@@ -15,7 +15,7 @@
 
 bl_info = {
     "name": "Hypermesh",
-    "description": "Adds tools for manipulating 4-dimensional meshes to Blender.",
+    "description": "Manipulating 4-dimensional meshes in Blender.",
     "author": "Daan Michiels",
     "version": (0, 1),
     "blender": (2, 75, 0),
@@ -59,7 +59,6 @@ from .addflattorusoperator import AddFlatTorusOperator
 from .hypermeshpreferences import HypermeshPreferences
 
 import bpy
-import random
 import sys
 from .hypermeshpreferences import debug_message
 

@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # This file is part of Hypermesh.
 #
 # Hypermesh is free software: you can redistribute it and/or modify
@@ -13,12 +15,12 @@
 # You should have received a copy of the GNU General Public License
 # along with Hypermesh.  If not, see <http://www.gnu.org/licenses/>.
 
+
 import os
 import zipfile
 import re
 
 if __name__ == "__main__":
-
     print("Packaging addon into zip file...")
 
     # determine the version of the addon from the bl_info field in __init__.py
