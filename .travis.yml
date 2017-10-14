@@ -16,7 +16,7 @@ install:
   - rm blender-2.75-linux-glibc211-x86_64.tar.bz2
 
   - cd ..
-  - sudo ln -s ${PWD}/hypermesh/addon ${PWD}/tmp/blender/2.75/scripts/addons/hypermesh
+  - sudo ln -s ${PWD}/addon ${PWD}/tmp/blender/2.75/scripts/addons/hypermesh
   - ls -la ${PWD}/tmp/blender/2.75/scripts
   - ls -la ${PWD}/tmp/blender/2.75/scripts/addons
   - ls -la ${PWD}/tmp/blender/2.75/scripts/addons/hypermesh
