@@ -18,7 +18,7 @@ bl_info = {
     "description": "Manipulating 4-dimensional meshes in Blender.",
     "author": "Daan Michiels",
     "version": (0, 1),
-    "blender": (2, 75, 0),
+    "blender": (2, 79, 0),
     "category": "Mesh"
 }
 
