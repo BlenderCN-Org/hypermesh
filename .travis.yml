@@ -16,7 +16,7 @@ install:
   - rm blender-2.79-linux-glibc219-x86_64.tar.bz2
 
   - cd ..
-  - sudo ln -s ${PWD}/addon ${PWD}/tmp/blender/2.79/scripts/addons/hypermesh
+  - #sudo ln -s ${PWD}/addon ${PWD}/tmp/blender/2.79/scripts/addons/hypermesh
 
 script: python run_tests.py ./tmp/blender/blender
 
