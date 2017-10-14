@@ -15,7 +15,7 @@ if len(sys.argv) > 1:
 for file in glob.glob('./tests/*.py.blend'):
     print(file)
     exitcode = subprocess.call([blenderExecutable, '--addons', 'hypermesh',
-        '--factory-startup', '-noaudio',
+        '-noaudio',
         '--python-exit-code', '1',
         '-b', file,
         '--python', file[:-6]])
