@@ -17,6 +17,7 @@ install:
 
   - cd ..
   - sudo ln -s ${PWD}/hypermesh/addon ${PWD}/tmp/blender/2.75/scripts/addons/hypermesh
+  - tree
 
 script: python run_tests.py ./tmp/blender/blender
 
