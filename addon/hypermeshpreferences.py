@@ -26,7 +26,10 @@ class HypermeshPreferences(bpy.types.AddonPreferences):
         layout.prop(self, "debugging")
 
 def debug_message(msg):
-    if bpy.context.user_preferences.addons[__package__].preferences.debugging:
-        print("Hypermesh: " + msg)
+    try:
+        if bpy.context.user_preferences.addons[__package__].preferences.debugging:
+            print("Hypermesh: " + msg)
+    except KeyError:
+        pass
 
 
