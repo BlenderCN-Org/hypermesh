@@ -1,3 +1,5 @@
+![Travis CI build status](https://travis-ci.org/daanmichiels/hypermesh.svg?branch=master)
+
 # hypermesh
 Blender tools for manipulating 4-dimensional meshes
 
