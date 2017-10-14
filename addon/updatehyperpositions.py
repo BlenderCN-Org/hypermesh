@@ -19,6 +19,7 @@ from .projections import map4to4
 from mathutils import Vector
 from .hypermeshpreferences import debug_message
 
+
 def clean_mesh(me):
     debug_message("Cleaning mesh " + me.name)
 
@@ -43,6 +44,7 @@ def clean_mesh(me):
         bmesh.update_edit_mesh(me)
     else:
         bm.to_mesh(me)
+
 
 class UpdateHyperPositions(bpy.types.Operator):
     bl_idname = "hyper.update4"

@@ -27,14 +27,16 @@ def map4to3(h, p):
         direction = p - Vector(h.viewcenter) - Vector(h.cameraoffset)
     else:
         direction = Vector(h.cameraoffset)
-    m = numpy.matrix([Vector(h.xvec),
-            Vector(h.yvec),
-            Vector(h.zvec),
-            direction])
+    m = numpy.matrix(
+        [Vector(h.xvec),
+         Vector(h.yvec),
+         Vector(h.zvec),
+         direction])
     m = m.transpose()
     result = numpy.linalg.solve(m, p - Vector(h.viewcenter))
     result = result[:3]
     return Vector(result)
+
 
 # input is a HyperPreset object, and a Vector
 def map3to4(h, a):
@@ -43,6 +45,7 @@ def map3to4(h, a):
     yv = Vector(h.yvec)
     zv = Vector(h.zvec)
     return vc + a.x * xv + a.y * yv + a.z * zv
+
 
 # input is a HyperPreset object, the 3-dimensional position
 # and the previous 4-dimensional position

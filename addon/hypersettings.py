@@ -14,12 +14,10 @@
 # along with Hypermesh.  If not, see <http://www.gnu.org/licenses/>.
 
 import bpy
-import bmesh
-from mathutils import Vector
-from .projections import map4to3
 from .updatehyperpositions import clean_mesh
 from .hyperpreset import project_to_3d
 from .hypermeshpreferences import debug_message
+
 
 def find_dirty_meshes_with_given_hypersettings(h):
     meshes = []
@@ -39,12 +37,14 @@ def find_dirty_meshes_with_given_hypersettings(h):
             meshes.append(me)
     return meshes
 
+
 def get_preset(self):
     try:
         return self["preset"]
     except KeyError:
         self["preset"] = 0
         return self["preset"]
+
 
 def set_preset(self, value):
     debug_message("Set preset of a HyperSettings")
@@ -60,18 +60,21 @@ def set_preset(self, value):
         # I suspect this search will match at most once
         me["hypermesh-dirty"] = False
         me["hypermesh-justcleaned"] = True
-        project_to_3d(me) #this will trigger handle_scene_changed
+        project_to_3d(me)  # this will trigger handle_scene_changed
+
 
 class HyperSettings(bpy.types.PropertyGroup):
-    hyper = bpy.props.BoolProperty(name="Hyper",
-            description="Is this object a hyperobject?",
-            default=False)
-    preset = bpy.props.IntProperty(name="Projection preset",
-            description="Which projection from 4-space to 3-space to use",
-            min=0,
-            max=3,
-            get=get_preset,
-            set=set_preset)
+    hyper = bpy.props.BoolProperty(
+        name="Hyper",
+        description="Is this object a hyperobject?",
+        default=False)
+    preset = bpy.props.IntProperty(
+        name="Projection preset",
+        description="Which projection from 4-space to 3-space to use",
+        min=0,
+        max=3,
+        get=get_preset,
+        set=set_preset)
 
     def set_preset_without_reprojecting(self, value):
         debug_message("Set preset without reprojecting")

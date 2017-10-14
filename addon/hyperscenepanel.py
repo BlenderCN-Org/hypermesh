@@ -15,6 +15,7 @@
 
 import bpy
 
+
 class preset_list(bpy.types.UIList):
     def draw_item(self, context, layout, data, item, icon, active_data, active_propname):
         if self.layout_type in {'DEFAULT', 'COMPACT'}:
@@ -22,6 +23,7 @@ class preset_list(bpy.types.UIList):
         elif self.layout_type in {'GRID'}:
             # maybe we should make this something more compact
             layout.prop(item, "name", text="", emboss=False)
+
 
 class HyperScenePanel(bpy.types.Panel):
     bl_space_type = "PROPERTIES"
@@ -36,7 +38,8 @@ class HyperScenePanel(bpy.types.Panel):
     def draw(self, context):
         layout = self.layout
         sc = context.scene
-        layout.template_list("preset_list", "notsurewhattoputhere", sc, "hyperpresets", sc, "selectedpreset", type="DEFAULT")
+        layout.template_list("preset_list", "notsurewhattoputhere", sc, "hyperpresets", sc,
+                             "selectedpreset", type="DEFAULT")
         if len(sc.hyperpresets) < 1:
             return
 

@@ -22,7 +22,7 @@ bl_info = {
     "category": "Mesh"
 }
 
-if "bpy" in locals(): #we're reloading
+if "bpy" in locals():  # we're reloading
     import importlib
     importlib.reload(projections)
     importlib.reload(hypersettings)
@@ -62,6 +62,7 @@ import bpy
 import sys
 from .hypermeshpreferences import debug_message
 
+
 @bpy.app.handlers.persistent
 def handle_scene_changed(scene):
     for me in bpy.data.meshes:
@@ -77,6 +78,7 @@ def handle_scene_changed(scene):
             except KeyError:
                 continue
 
+
 class AddHyperMeshMenu(bpy.types.Menu):
     bl_idname = "INFO_MT_add_hypermesh"
     bl_label = "Hypermesh"
@@ -85,9 +87,11 @@ class AddHyperMeshMenu(bpy.types.Menu):
         self.layout.operator("hyper.inserthypercube", text="Hypercube", icon="MESH_CUBE")
         self.layout.operator("hyper.addflattorus", text="Flat torus", icon="MESH_TORUS")
 
+
 def add_hypermesh_func(self, context):
     self.layout.separator()
     self.layout.menu("INFO_MT_add_hypermesh", icon="OUTLINER_OB_MESH")
+
 
 def register():
     print("Registering hypermesh addon... ", end="")
@@ -101,6 +105,7 @@ def register():
     bpy.app.handlers.scene_update_post.append(handle_scene_changed)
     bpy.types.INFO_MT_add.append(add_hypermesh_func)
 
+
 def unregister():
     bpy.types.INFO_MT_add.remove(add_hypermesh_func)
     bpy.app.handlers.scene_update_post.remove(handle_scene_changed)
@@ -109,6 +114,7 @@ def unregister():
     del bpy.types.Mesh.hypersettings
     bpy.utils.unregister_module(__name__)
     print("Unregistered hypermesh addon.")
+
 
 if __name__ == "__main__":
     register()

@@ -15,9 +15,9 @@
 
 import bpy
 import bmesh
-from .projections import map3to4
 from .hyperpreset import ensure_scene_is_hyper
 from .hypermeshpreferences import debug_message
+
 
 class MakeHyperOperator(bpy.types.Operator):
     bl_idname = "hyper.makehyper"
@@ -39,7 +39,8 @@ class MakeHyperOperator(bpy.types.Operator):
         # note: if there were no presets, value is now 0
         self["selected_preset"] = value
 
-    selected_preset = bpy.props.IntProperty(name="Projection",
+    selected_preset = bpy.props.IntProperty(
+        name="Projection",
         description="Which projection to use when interpreting the 3-mesh as a 4-mesh",
         get=get_selected_preset,
         set=set_selected_preset)
@@ -50,14 +51,13 @@ class MakeHyperOperator(bpy.types.Operator):
             return False
         if context.active_object.type != 'MESH':
             return False
-        me = context.active_object.data
         return context.mode == "OBJECT"
 
     def draw(self, context):
         layout = self.layout
-        row = layout.row()
-        layout.template_list("preset_list", "notsurewhattoputhere", context.scene, "hyperpresets", self, "selected_preset")
-
+        layout.row()
+        layout.template_list("preset_list", "notsurewhattoputhere", context.scene,
+                             "hyperpresets", self, "selected_preset")
 
     def execute(self, context):
         debug_message("Making hyper")
@@ -82,4 +82,3 @@ class MakeHyperOperator(bpy.types.Operator):
         me["hypermesh-justcleaned"] = False
         me.hypersettings.set_preset_without_reprojecting(self.selected_preset)
         return {'FINISHED'}
-

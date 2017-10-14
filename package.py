@@ -33,18 +33,17 @@ if __name__ == "__main__":
                 major = match.group(1)
                 minor = match.group(2)
                 break
-    if major != -1: # succeeded in determination
+    if major != -1:  # succeeded in determination
         zipname = "hypermesh-" + major + "." + minor + ".zip"
-    else: # failed to find version number
+    else:  # failed to find version number
         zipname = "hypermesh.zip"
-
 
     zipf = zipfile.ZipFile(zipname, "w", zipfile.ZIP_DEFLATED)
     for dirpath, dirnames, filenames in os.walk("addon"):
-        for f in filenames + dirnames: #include empty directories
+        for f in filenames + dirnames:  # include empty directories
             if "__pycache__" in dirpath or "__pycache__" in f:
                 continue
-            #the folder inside the zip should be called 'hypermesh', not 'addon'
+            # the folder inside the zip should be called 'hypermesh', not 'addon'
             archive_dirpath = "hypermesh" + dirpath[5:]
             print("  Writing " + f)
             zipf.write(os.path.join(dirpath, f), os.path.join(archive_dirpath, f))
@@ -56,5 +55,3 @@ if __name__ == "__main__":
     print("   File -> User Preferences... -> Install from File...")
     print("and selecting " + zipname + " from this folder.")
     print("Afterwards, enable it in the user preferences.")
-
-

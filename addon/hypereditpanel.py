@@ -17,7 +17,7 @@ import bpy
 import bmesh
 from .projections import map4to4
 from mathutils import Vector
-from .hypermeshpreferences import debug_message
+
 
 class HyperEditPanel(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
@@ -38,8 +38,6 @@ class HyperEditPanel(bpy.types.Panel):
         return me.hypersettings.hyper
 
     def draw(self, context):
-        #debug_message("Drawing panel Hypercoordinates")
-
         me = context.active_object.data
         bm = bmesh.from_edit_mesh(me)
         verts = [v for v in bm.verts if v.select]
@@ -77,7 +75,7 @@ class HyperEditPanel(bpy.types.Panel):
         meanx /= n
         meany /= n
         meanz /= n
-        
+
         if n == 1:
             row.label("Vertex:")
         else:

@@ -20,6 +20,7 @@ from .projections import map4to3
 from mathutils import Vector
 from .hypermeshpreferences import debug_message
 
+
 def project_to_3d(me):
     debug_message("Projecting " + me.name + " to 3D")
 
@@ -43,6 +44,7 @@ def project_to_3d(me):
         bm.to_mesh(me)
     me.update()
 
+
 def find_dirty_meshes_with_given_hyperpreset(pr):
     meshes = []
     for me in bpy.data.meshes:
@@ -61,12 +63,14 @@ def find_dirty_meshes_with_given_hyperpreset(pr):
             meshes.append(me)
     return meshes
 
+
 def get_preset_property(self, prop, default):
     try:
         return self[prop]
     except KeyError:
         self[prop] = default
         return self[prop]
+
 
 def set_preset_property(self, prop, value):
     debug_message("Set preset property")
@@ -81,50 +85,62 @@ def set_preset_property(self, prop, value):
             continue
         me["hypermesh-dirty"] = False
         me["hypermesh-justcleaned"] = True
-        project_to_3d(me) #this will trigger handle_scene_changed
+        project_to_3d(me)  # this will trigger handle_scene_changed
+
 
 class HyperPreset(bpy.types.PropertyGroup):
-    name = bpy.props.StringProperty(name="Name",
-            description="Name of the projection",
-            default="AwesomeProjection")
-    perspective = bpy.props.BoolProperty(name="Perspective",
-            description="Use perspective when mapping to 3-space",
-            get=(lambda x: get_preset_property(x, "perspective", False)),
-            set=(lambda x, y: set_preset_property(x, "perspective", y)))
-    viewcenter = bpy.props.FloatVectorProperty(name="View center",
-            size=4,
-            description="The point in 4-space at the origin of the image plane",
-            get=(lambda x: get_preset_property(x, "viewcenter", (0.0, 0.0, 0.0, 0.0))),
-            set=(lambda x, y: set_preset_property(x, "viewcenter", y)),
-            subtype='QUATERNION')
-    cameraoffset = bpy.props.FloatVectorProperty(name="Camera offset",
-            size=4,
-            description="Vector from the view center to the camera position",
-            get=(lambda x: get_preset_property(x, "cameraoffset", (-4.0,0.0,0.0,0.0))),
-            set=(lambda x, y: set_preset_property(x, "cameraoffset", y)),
-            subtype='QUATERNION')
-    xvec = bpy.props.FloatVectorProperty(name="X vector",
-            size=4,
-            description="Vector in image plane such that (view center + X vector) is mapped to (1,0,0)",
-            get=(lambda x: get_preset_property(x, "xvec", (0.0, 1.0, 0.0, 0.0))),
-            set=(lambda x, y: set_preset_property(x, "xvec", y)),
-            subtype='QUATERNION')
-    yvec = bpy.props.FloatVectorProperty(name="Y vector",
-            size=4,
-            description="Vector in image plane such that (view center + Y vector) is mapped to (0,1,0)",
-            get=(lambda x: get_preset_property(x, "yvec", (0.0, 0.0, 1.0, 0.0))),
-            set=(lambda x, y: set_preset_property(x, "yvec", y)),
-            subtype='QUATERNION')
-    zvec = bpy.props.FloatVectorProperty(name="Z vector",
-            size=4,
-            description="Vector in image plane such that (view center + Z vector) is mapped to (0,0,1)",
-            get=(lambda x: get_preset_property(x, "zvec", (0.0, 0.0, 0.0, 1.0))),
-            set=(lambda x, y: set_preset_property(x, "zvec", y)),
-            subtype='QUATERNION')
+    name = bpy.props.StringProperty(
+        name="Name",
+        description="Name of the projection",
+        default="AwesomeProjection")
+    perspective = bpy.props.BoolProperty(
+        name="Perspective",
+        description="Use perspective when mapping to 3-space",
+        get=(lambda x: get_preset_property(x, "perspective", False)),
+        set=(lambda x, y: set_preset_property(x, "perspective", y)))
+    viewcenter = bpy.props.FloatVectorProperty(
+        name="View center",
+        size=4,
+        description="The point in 4-space at the origin of the image plane",
+        get=(lambda x: get_preset_property(x, "viewcenter", (0.0, 0.0, 0.0, 0.0))),
+        set=(lambda x, y: set_preset_property(x, "viewcenter", y)),
+        subtype='QUATERNION')
+    cameraoffset = bpy.props.FloatVectorProperty(
+        name="Camera offset",
+        size=4,
+        description="Vector from the view center to the camera position",
+        get=(lambda x: get_preset_property(x, "cameraoffset", (-4.0, 0.0, 0.0, 0.0))),
+        set=(lambda x, y: set_preset_property(x, "cameraoffset", y)),
+        subtype='QUATERNION')
+    xvec = bpy.props.FloatVectorProperty(
+        name="X vector",
+        size=4,
+        description="Vector in image plane such that (view center + X vector) "
+                    "is mapped to (1,0,0)",
+        get=(lambda x: get_preset_property(x, "xvec", (0.0, 1.0, 0.0, 0.0))),
+        set=(lambda x, y: set_preset_property(x, "xvec", y)),
+        subtype='QUATERNION')
+    yvec = bpy.props.FloatVectorProperty(
+        name="Y vector",
+        size=4,
+        description="Vector in image plane such that (view center + Y vector) "
+                    "is mapped to (0,1,0)",
+        get=(lambda x: get_preset_property(x, "yvec", (0.0, 0.0, 1.0, 0.0))),
+        set=(lambda x, y: set_preset_property(x, "yvec", y)),
+        subtype='QUATERNION')
+    zvec = bpy.props.FloatVectorProperty(
+        name="Z vector",
+        size=4,
+        description="Vector in image plane such that (view center + Z vector) "
+                    "is mapped to (0,0,1)",
+        get=(lambda x: get_preset_property(x, "zvec", (0.0, 0.0, 0.0, 1.0))),
+        set=(lambda x, y: set_preset_property(x, "zvec", y)),
+        subtype='QUATERNION')
+
 
 # set a hyperpreset to a builtin preset
 # what is meant by builtin? Well, anything that's given by this function...
-def set_to_builtin_preset(hyperpreset, builtin = 'noW'):
+def set_to_builtin_preset(hyperpreset, builtin='noW'):
     hyperpreset.perspective = False
     hyperpreset.viewcenter = (0.0, 0.0, 0.0, 0.0)
     w = (1.0, 0.0, 0.0, 0.0)
@@ -156,6 +172,7 @@ def set_to_builtin_preset(hyperpreset, builtin = 'noW'):
         hyperpreset.cameraoffset = tuple([5 * t for t in w])
         hyperpreset.name = "No W"
 
+
 def ensure_scene_is_hyper(scene):
     hps = scene.hyperpresets
     if len(hps) > 0:
@@ -168,4 +185,3 @@ def ensure_scene_is_hyper(scene):
     set_to_builtin_preset(hps[1], 'noX')
     set_to_builtin_preset(hps[2], 'noY')
     set_to_builtin_preset(hps[3], 'noZ')
-

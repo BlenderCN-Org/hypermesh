@@ -15,15 +15,18 @@
 
 import bpy
 
+
 class HypermeshPreferences(bpy.types.AddonPreferences):
     bl_idname = __package__
 
-    debugging = bpy.props.BoolProperty(name="Debugging",
+    debugging = bpy.props.BoolProperty(
+        name="Debugging",
         default=False)
 
     def draw(self, context):
         layout = self.layout
         layout.prop(self, "debugging")
+
 
 def debug_message(msg):
     try:
@@ -31,5 +34,3 @@ def debug_message(msg):
             print("Hypermesh: " + msg)
     except KeyError:
         pass
-
-

@@ -15,6 +15,7 @@
 
 import bpy
 
+
 class HyperPresetPanel(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
@@ -22,7 +23,7 @@ class HyperPresetPanel(bpy.types.Panel):
     bl_label = "Select projection"
 
     @classmethod
-    def poll(self, context):
+    def poll(cls, context):
         if context.active_object is None:
             return False
         ob = context.active_object
@@ -36,5 +37,6 @@ class HyperPresetPanel(bpy.types.Panel):
         if not me.hypersettings.hyper:
             layout.operator("hyper.makehyper", text="Make hyper")
             return
-        layout.template_list("preset_list", "notsurewhattoputhere", context.scene, "hyperpresets", me.hypersettings, "preset")
-
+        layout.template_list("preset_list", "notsurewhattoputhere",
+                             context.scene, "hyperpresets",
+                             me.hypersettings, "preset")

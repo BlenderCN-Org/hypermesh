@@ -1,11 +1,9 @@
 #!/usr/bin/env python
 
 import unittest
-import sys
-
 import bpy
 import bmesh
-import hypermesh
+
 
 class TestMakeHyperOperator(unittest.TestCase):
     def test_invocation(self):
@@ -28,10 +26,8 @@ class TestMakeHyperOperator(unittest.TestCase):
         bpy.ops.object.delete()
 
 
-
 if __name__ == "__main__":
     suite = unittest.defaultTestLoader.loadTestsFromTestCase(TestMakeHyperOperator)
     success = unittest.TextTestRunner(verbosity=2).run(suite).wasSuccessful()
     if not success:
         raise Exception('test failed')
-

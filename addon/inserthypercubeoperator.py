@@ -15,9 +15,9 @@
 
 import bpy
 import bmesh
-from .projections import map3to4
 from .hyperpreset import ensure_scene_is_hyper
 from .hypermeshpreferences import debug_message
+
 
 class InsertHyperCubeOperator(bpy.types.Operator):
     bl_idname = "hyper.inserthypercube"
@@ -49,7 +49,7 @@ class InsertHyperCubeOperator(bpy.types.Operator):
         layz = bm.verts.layers.float.new('hyperz')
 
         for i in range(16):
-            v = bm.verts.new((0,0,0))
+            v = bm.verts.new((0, 0, 0))
             v[layw] = self.radius * (((i & 0x01) << 1) - 1)
             v[layx] = self.radius * (((i & 0x02) << 0) - 1)
             v[layy] = self.radius * (((i & 0x04) >> 1) - 1)
@@ -69,8 +69,9 @@ class InsertHyperCubeOperator(bpy.types.Operator):
                 for k in range(j+1, 4):
                     if (i & bits[j]) or (i & bits[k]):
                         continue
-                    bm.faces.new((bm.verts[i], bm.verts[i | bits[j]], bm.verts[i | bits[j] | bits[k]], bm.verts[i | bits[k]]))
-
+                    bm.faces.new((bm.verts[i], bm.verts[i | bits[j]],
+                                  bm.verts[i | bits[j] | bits[k]],
+                                  bm.verts[i | bits[k]]))
 
         bm.to_mesh(me)
 
@@ -83,4 +84,3 @@ class InsertHyperCubeOperator(bpy.types.Operator):
         me.hypersettings.preset = sc.selectedpreset
 
         return {'FINISHED'}
-
