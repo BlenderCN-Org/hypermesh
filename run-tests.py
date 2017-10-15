@@ -4,6 +4,7 @@
 import glob
 import subprocess
 import sys
+import os
 
 blenderExecutable = 'blender'
 
@@ -11,14 +12,18 @@ blenderExecutable = 'blender'
 if len(sys.argv) > 1:
     blenderExecutable = sys.argv[1]
 
-for file in glob.glob('./tests/*.py.blend'):
+for file in glob.glob('./tests/*.py'):
     print(file)
-    exitcode = subprocess.call(
-        [blenderExecutable,
-         '--addons', 'hypermesh',
-         '--factory-startup', '-noaudio',
-         '--python-exit-code', '1',
-         '-b', file,
-         '--python', file[:-6]])
+    command = [
+        blenderExecutable,
+        '--addons', 'hypermesh',
+        '--factory-startup',
+        '-noaudio',
+        '--python-exit-code', '1',
+        '-b']
+    if os.path.isfile(file + '.blend'):
+        command.append(file + '.blend')
+    command.extend(['--python', file])
+    exitcode = subprocess.call(command)
     if exitcode != 0:
         sys.exit(exitcode)
