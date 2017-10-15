@@ -24,26 +24,9 @@ class MakeHyperOperator(bpy.types.Operator):
     bl_label = "Make hyper"
     bl_options = {'REGISTER', 'UNDO'}
 
-    def get_selected_preset(self):
-        try:
-            return self["selected_preset"]
-        except KeyError:
-            self["selected_preset"] = bpy.context.scene.selectedpreset
-            return self["selected_preset"]
-
-    def set_selected_preset(self, value):
-        if value >= len(bpy.context.scene.hyperpresets):
-            value = len(bpy.context.scene.hyperpresets) - 1
-        if value < 0:
-            value = 0
-        # note: if there were no presets, value is now 0
-        self["selected_preset"] = value
-
     selected_preset = bpy.props.IntProperty(
         name="Projection",
-        description="Which projection to use when interpreting the 3-mesh as a 4-mesh",
-        get=get_selected_preset,
-        set=set_selected_preset)
+        description="Which projection to use when interpreting the 3-mesh as a 4-mesh")
 
     @classmethod
     def poll(cls, context):
@@ -51,6 +34,7 @@ class MakeHyperOperator(bpy.types.Operator):
             return False
         if context.active_object.type != 'MESH':
             return False
+        # TODO: check whether object is hyper?
         return context.mode == "OBJECT"
 
     def draw(self, context):
